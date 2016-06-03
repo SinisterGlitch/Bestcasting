@@ -1,0 +1,8 @@
+*~
+.DS_Store
+composer.lock
+.idea/
+app/config/parameters.yml
+var/
+vendor/
+web/bundles/
