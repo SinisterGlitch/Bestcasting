@@ -47,6 +47,6 @@ class AuthController extends FOSRestController
      */
     private function getUserManager()
     {
-        return $this->get('manage_user_manager');
+        return $this->get('core_user_manager');
     }
 }

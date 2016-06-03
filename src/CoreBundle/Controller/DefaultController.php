@@ -1,12 +1,12 @@
 <?php
 
-namespace ManageBundle\Controller;
+namespace CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 
 /**
  * Class DefaultController
- * @package ManageBundle\Controller
+ * @package CoreBundle\Controller
  */
 class DefaultController extends FOSRestController
 {

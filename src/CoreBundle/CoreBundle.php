@@ -1,9 +1,9 @@
 <?php
 
-namespace ManageBundle;
+namespace CoreBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class ManageBundle extends Bundle
+class CoreBundle extends Bundle
 {
 }

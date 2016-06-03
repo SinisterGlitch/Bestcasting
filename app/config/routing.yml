@@ -1,5 +1,5 @@
 app:
-    resource: "@ManageBundle/Controller/DefaultController.php"
+    resource: "@CoreBundle/Controller/DefaultController.php"
     type:     rest
     prefix:   api
 
