@@ -1,0 +1,19 @@
+security:
+  encoders:
+      UserBundle\Entity\User: bcrypt
+
+  providers:
+    manage_user_provider:
+      id: manage_user_provider
+
+  firewalls:
+    dev:
+        pattern:  ^/(_(profiler|wdt)|css|images|js)/
+        security: false
+
+    main:
+      pattern:    ^/api
+      stateless: true
+      provider: manage_user_provider
+      simple_preauth:
+        authenticator: manage_user_authenticator

@@ -1,0 +1,9 @@
+app:
+    resource: "@ManageBundle/Controller/DefaultController.php"
+    type:     rest
+    prefix:   api
+
+user:
+    resource: "@UserBundle/Controller/AuthController.php"
+    type:     rest
+    prefix:   auth
