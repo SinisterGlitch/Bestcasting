@@ -2,14 +2,11 @@
 
 namespace UserBundle\Controller;
 
-use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
-use Symfony\Component\Security\Core\User\UserInterface;
 use UserBundle\Entity\User;
-use UserBundle\Repository\UserRepository;
+use UserBundle\Security\UserManager;
 
 /**
  * Class DefaultController
@@ -26,22 +23,9 @@ class AuthController extends FOSRestController
      */
     public function loginAction(User $user)
     {
-        $password = $user->getPassword();
-        $user = $this->findUser($user->getUsername());
+        $user = $this->getUserManager()->login($user);
 
-        if (!$user instanceof UserInterface
-            || !$this->getEncoder()->isPasswordValid($user, $password)
-        ) {
-            throw $this->createAccessDeniedException();
-        }
-
-        $user->setToken(sha1(uniqid()));
-
-        $em = $this->getManager();
-        $em->persist($user);
-        $em->flush();
-
-        return $user->getToken();
+       return ['token' => $user->getToken()];
     }
 
     /**
@@ -53,55 +37,16 @@ class AuthController extends FOSRestController
      */
     public function registerAction(User $user)
     {
-        $user->setPassword($this->encrypt($user, $user->getPassword()));
+        $this->getUserManager()->register($user);
 
-        $em = $this->getManager();
-        $em->persist($user);
-        $em->flush();
-
-        return $user;
+        return ['user' => $user];
     }
 
     /**
-     * @param User $user
-     * @param string $password
-     * @return string
+     * @return UserManager
      */
-    private function encrypt(User $user, $password)
+    private function getUserManager()
     {
-        return $this->getEncoder()->encodePassword($user, $password);
-    }
-
-    /**
-     * @param string $username
-     * @return User
-     */
-    private function findUser($username)
-    {
-        return $this->getUserRepository()->findUserByUsername($username);
-    }
-
-    /**
-     * @return UserRepository
-     */
-    private function getUserRepository()
-    {
-        return $this->getManager()->getRepository('UserBundle:User');
-    }
-
-    /**
-     * @return EntityManager
-     */
-    private function getManager()
-    {
-        return $this->getDoctrine()->getManager();
-    }
-
-    /**
-     * @return UserPasswordEncoder
-     */
-    private function getEncoder()
-    {
-        return $this->get('security.password_encoder');
+        return $this->get('manage_user_manager');
     }
 }

@@ -5,3 +5,7 @@ services:
 
   manage_user_authenticator:
     class: UserBundle\Security\UserAuthenticator
+
+  manage_user_manager:
+    class: UserBundle\Security\UserManager
+    arguments: ['@doctrine.orm.entity_manager', '@security.password_encoder']
