@@ -5,6 +5,7 @@ namespace UserBundle\Security;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use UserBundle\Entity\User;
 use UserBundle\Repository\UserRepository;
@@ -48,10 +49,7 @@ class UserManager
             throw new AuthenticationCredentialsNotFoundException();
         }
 
-        $user->setToken(sha1(uniqid()));
-        $em = $this->manager;
-        $em->persist($user);
-        $em->flush();
+        $this->saveUser($user);
 
         return $user;
     }
@@ -64,11 +62,23 @@ class UserManager
     {
         $user->setPassword($this->encrypt($user, $user->getPassword()));
 
-        $em = $this->manager;
-        $em->persist($user);
-        $em->flush();
+        if ($this->findUser($user->getUsername()) instanceof User) {
+            throw new UnsupportedUserException('given username already exists');
+        }
+
+        $this->saveUser($user);
 
         return $user;
+    }
+
+    /**
+     * @param User $user
+     * @return User
+     */
+    public function saveUser(User $user)
+    {
+        $this->manager->persist($user);
+        $this->manager->flush();
     }
 
     /**

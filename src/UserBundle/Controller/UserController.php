@@ -9,10 +9,10 @@ use UserBundle\Entity\User;
 use UserBundle\Security\UserManager;
 
 /**
- * Class DefaultController
+ * Class UserController
  * @package UserBundle\Controller
  */
-class AuthController extends FOSRestController
+class UserController extends FOSRestController
 {
     /**
      * @Post("login")

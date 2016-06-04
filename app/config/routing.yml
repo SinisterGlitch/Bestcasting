@@ -4,6 +4,6 @@ app:
     prefix:   api
 
 user:
-    resource: "@UserBundle/Controller/AuthController.php"
+    resource: "@UserBundle/Controller/UserController.php"
     type:     rest
-    prefix:   auth
+    prefix:   user
