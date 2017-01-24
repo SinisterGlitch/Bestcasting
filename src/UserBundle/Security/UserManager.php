@@ -3,12 +3,12 @@
 namespace UserBundle\Security;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
-use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\UserInterface;
+use CoreBundle\Service\Mailer\MailManager;
+use UserBundle\Entity\Repository\UserRepository;
 use UserBundle\Entity\User;
-use UserBundle\Repository\UserRepository;
 
 /**
  * Class DefaultController
@@ -27,58 +27,136 @@ class UserManager
     private $encoder;
 
     /**
+     * @var MailManager
+     */
+    private $mailManager;
+
+    /**
      * @param EntityManager $manager
      * @param UserPasswordEncoder $encoder
+     * @param MailManager $mailManager
      */
-    public function __construct(EntityManager $manager, UserPasswordEncoder $encoder)
+    public function __construct(EntityManager $manager, UserPasswordEncoder $encoder, MailManager $mailManager)
     {
         $this->manager = $manager;
         $this->encoder = $encoder;
+        $this->mailManager = $mailManager;
+    }
+
+    /**
+     * @param User $user
+     * @param bool $validate
+     * @return User
+     */
+    public function loginByCredentials(User $user, $validate = true)
+    {
+        $password = $user->getPassword();
+        $user = $this->findUser(['username' => $user->getUsername()]);
+
+        if ($validate && (!$user || !$this->validateUser($user, $password))) {
+            throw new BadRequestHttpException('Given credentials are invalid');
+        }
+
+        if (!$user->getEnabled()) {
+            throw new BadRequestHttpException('User is not enabled');
+        }
+
+        return $this->saveUser($user);
     }
 
     /**
      * @param User $user
      * @return User
      */
-    public function login(User $user)
+    public function loginByToken(User $user)
     {
-        $password = $user->getPassword();
-        $user = $this->findUser($user->getUsername());
+        $user = $this->findUser(['token' => $user->getToken()]);
 
-        if (!$this->validateUser($user, $password)) {
-            throw new AuthenticationCredentialsNotFoundException();
+        if (!$user->getEnabled()) {
+            throw new BadRequestHttpException('User is not enabled');
         }
 
-        $this->saveUser($user);
-
-        return $user;
+        return $this->saveUser($user);
     }
 
     /**
      * @param User $user
-     * @return array
+     * @return User
      */
-    public function register(User $user)
+    public function logout(User $user)
+    {
+        $user = $this->findUser(['id' => $user->getId()]);
+
+        return $this->saveUser($user);
+    }
+
+    /**
+     * @param User $user
+     * @return User
+     */
+    public function updatePassword(User $user)
     {
         $user->setPassword($this->encrypt($user, $user->getPassword()));
 
-        if ($this->findUser($user->getUsername()) instanceof User) {
-            throw new UnsupportedUserException('given username already exists');
-        }
-
-        $this->saveUser($user);
-
-        return $user;
+        return $this->saveUser($user, false);
     }
 
     /**
      * @param User $user
      * @return User
      */
-    public function saveUser(User $user)
+    public function register(User $user)
     {
+        $user->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+        $user->setPassword($this->encrypt($user, $user->getPassword()));
+
+        if ($this->findUser(['username' => $user->getUsername()]) instanceof User) {
+            throw new UnsupportedUserException('given username already exists');
+        }
+
+        return $this->saveUser($user);
+    }
+
+    /**
+     * @param User $user
+     * @param bool $resetToken
+     * @return User
+     */
+    public function saveUser(User $user, $resetToken = true)
+    {
+        if ($resetToken) {
+            $token = $this->createToken();
+            $user->setToken($token);
+        }
+
         $this->manager->persist($user);
         $this->manager->flush();
+
+        return $user;
+    }
+
+    /**
+     * @return UserRepository
+     */
+    public function getRepository()
+    {
+        return $this->manager->getRepository('UserBundle:User');
+    }
+
+    /**
+     * @param string $property
+     * @param string $value
+     */
+    public function resetPassword($property, $value)
+    {
+        $user = null;
+        $user = $this->getRepository()->findOneByParams([$property => $value]);
+
+        if (!$user) {
+            throw new BadRequestHttpException();
+        }
+
+        $this->mailManager->send('access', 'mandrill', ['user' => $user]);
     }
 
     /**
@@ -92,12 +170,12 @@ class UserManager
     }
 
     /**
-     * @param string $username
+     * @param array $params
      * @return User
      */
-    private function findUser($username)
+    private function findUser($params)
     {
-        return $this->getUserRepository()->findUserByUsername($username);
+        return $this->getRepository()->findOneByParams($params);
     }
 
     /**
@@ -107,15 +185,14 @@ class UserManager
      */
     private function validateUser(User $user, $password)
     {
-        return $user instanceof UserInterface
-            && $this->encoder->isPasswordValid($user, $password);
+        return $this->encoder->isPasswordValid($user, $password);
     }
 
     /**
-     * @return UserRepository
+     * @return string
      */
-    private function getUserRepository()
+    private function createToken()
     {
-        return $this->manager->getRepository('UserBundle:User');
+        return base_convert(sha1(uniqid(mt_rand(), true)), 16, 20);
     }
 }

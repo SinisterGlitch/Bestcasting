@@ -1,0 +1,64 @@
+services:
+
+    # SerializerManager
+    core.serializer_manager:
+        class: ApiBundle\Service\Serializer\SerializerManager
+        arguments:
+            - '@serializer'
+            - '@validator'
+            - '@doctrine.orm.entity_manager'
+
+    jms_serializer.doctrine_object_constructor:
+        class: 'ApiBundle\Service\Serializer\Constructor\PersistedEntityConstructor'
+        public: false
+        arguments:
+            - '@doctrine'
+            - '@jms_serializer.unserialize_object_constructor'
+
+    jms_serializer.object_constructor:
+        alias: jms_serializer.doctrine_object_constructor
+
+
+    # MailManager
+    core.mailer.manager:
+        class: 'CoreBundle\Service\Mailer\MailManager'
+        arguments: ['@logger']
+        calls:
+            - [addProvider, ['smtp', '@core.mailer.provider.smtp']]
+            - [addHandler, ['access', '@core.mailer.handler.access']]
+            - [addHandler, ['access', '@core.mailer.handler._access']]
+            - [addHandler, ['activation', '@core.mailer.handler._activation']]
+
+    core.mailer.context:
+        class: 'CoreBundle\Service\Mailer\MailContext'
+        public: false
+
+    core.mailer.provider.abstract:
+        class: 'CoreBundle\Service\Mailer\Providers\AbstractProvider'
+        abstract: true
+        public: false
+
+    core.mailer.provider.smtp:
+        class: 'CoreBundle\Service\Mailer\Providers\SmtpProvider'
+        parent: 'core.mailer.provider.abstract'
+
+    core.mailer.handler.abstract:
+        class: 'CoreBundle\Service\Mailer\Handlers\AbstractHandler'
+        arguments: ['@core.mailer.context', '@doctrine.orm.entity_manager', '@twig']
+        abstract: true
+        public: false
+
+    core.mailer.handler.access:
+        class: 'CoreBundle\Service\Mailer\Handlers\AccessHandler'
+        parent: 'core.mailer.handler.abstract'
+        public: false
+
+    core.mailer.handler._access:
+        class: 'CoreBundle\Service\Mailer\Handlers\AccessHandler'
+        parent: 'core.mailer.handler.abstract'
+        public: false
+
+    core.mailer.handler._activation:
+        class: 'CoreBundle\Service\Mailer\Handlers\ActivationHandler'
+        parent: 'core.mailer.handler.abstract'
+        public: false

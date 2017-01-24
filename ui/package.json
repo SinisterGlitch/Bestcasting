@@ -1,0 +1,26 @@
+{
+  "name": "BestCasting",
+  "version": "0.3.5",
+  "description": "BestCasting narrowcasting platform",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "dev": "webpack --progress --colors --watch --debug --devtool eval --display-error",
+    "build": "webpack --progress --colors --optimize-minimize"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-loader": "5.3.*",
+    "babel-runtime": "^5.8.29",
+    "history": "^1.13.0",
+    "lodash": "^3.2.0",
+    "react": "^0.14.1",
+    "react-addons-linked-state-mixin": "^0.14.1",
+    "react-dom": "^15.1.0",
+    "react-router": "^1.0.0-rc3",
+    "reflux": "^0.3.0",
+    "superagent": "^0.21.0",
+    "webpack": "^1.12.2"
+  }
+}

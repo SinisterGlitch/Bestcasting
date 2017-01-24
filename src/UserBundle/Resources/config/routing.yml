@@ -1,0 +1,4 @@
+api_user_controller:
+    resource: '@UserBundle/Controller/UserController.php'
+    prefix: auth
+    type: rest

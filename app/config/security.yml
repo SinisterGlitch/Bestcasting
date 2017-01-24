@@ -1,19 +1,28 @@
 security:
+  role_hierarchy:
+      ROLE_ADMIN:       ROLE_USER
+      ROLE_SUPER_ADMIN: ROLE_ADMIN
+
   encoders:
       UserBundle\Entity\User: bcrypt
 
   providers:
-    core_user_provider:
-      id: core_user_provider
+    core.user_provider:
+      id: core.user_provider
 
   firewalls:
     dev:
-        pattern:  ^/(_(profiler|wdt)|css|images|js)/
+        pattern: ^/(_(profiler|wdt)|css|images|js)/
         security: false
 
-    main:
-      pattern:    ^/api
+    api:
+      pattern: ^/api
       stateless: true
-      provider: core_user_provider
+      provider: core.user_provider
       simple_preauth:
-        authenticator: core_user_authenticator
+        authenticator: core.user_authenticator
+
+    auth:
+      pattern: ^/auth
+      stateless: true
+      security: false

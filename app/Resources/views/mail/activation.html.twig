@@ -1,0 +1,17 @@
+{% extends ':mail:base.html.twig' %}
+
+{% block body %}
+    <table align="center" border="0" cellpadding="32" cellspacing="0" style="border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: white; border-radius: 0.5rem; margin-bottom: 1rem;">
+        <tr>
+            <td style="border-collapse: collapse;" valign="top" width="546">
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #303949; line-height: 30px; margin-bottom: 12px; margin: 0 0 12px;">Hi {{ user.firstName }},</h2>
+                    <p>
+                        We've already set up your account, to complete this process, please verify your address is valid and belongs to you by clicking the link below.<br/>
+                    </p>
+                    <a href="{{ user.group.domain.url }}/token-login/{{ user.token }}" style="color: #6d798c; font-weight: bold; text-decoration: none; word-break: break-word;">Click here to use your one time login</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

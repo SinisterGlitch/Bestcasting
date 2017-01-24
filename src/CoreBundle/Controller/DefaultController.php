@@ -2,13 +2,11 @@
 
 namespace CoreBundle\Controller;
 
-use FOS\RestBundle\Controller\FOSRestController;
-
 /**
  * Class DefaultController
  * @package CoreBundle\Controller
  */
-class DefaultController extends FOSRestController
+class DefaultController extends BaseController
 {
     /**
      * @return array

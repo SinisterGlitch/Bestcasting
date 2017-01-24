@@ -2,44 +2,95 @@
 
 namespace UserBundle\Controller;
 
+use CoreBundle\Controller\BaseController;
+use FOS\RestBundle\Controller\Annotations\NamePrefix;
 use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\FOSRestController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use CoreBundle\Service\Mailer\MailContext;
+use CoreBundle\Service\Mailer\MailManager;
+use CoreBundle\Service\Mailer\Providers\AbstractProvider;
 use UserBundle\Entity\User;
+use UserBundle\Entity\Repository\UserRepository;
 use UserBundle\Security\UserManager;
 
 /**
  * Class UserController
  * @package UserBundle\Controller
+ * @NamePrefix("user__user_")
  */
-class UserController extends FOSRestController
+class UserController extends BaseController
 {
     /**
-     * @Post("login")
-     * @ParamConverter("user", converter="fos_rest.request_body")
-     *
-     * @param User $user
+     * @Post("access")
+     * @param Request $request
      * @return array
      */
-    public function loginAction(User $user)
+    public function accessAction(Request $request)
     {
-        $user = $this->getUserManager()->login($user);
+        $email = $request->query->get('email', null);
 
-       return ['token' => $user->getToken()];
+        if ($email === null) {
+            throw new BadRequestHttpException('email is required');
+        }
+
+        $user = $this->getUserRepository()->findOneBy(['email' => $email]);
+        $this->sendMail('_access', ['user' => $user]);
     }
 
     /**
-     * @Post("register")
-     * @ParamConverter("user", converter="fos_rest.request_body")
-     *
-     * @param User $user
+     * @Post("token")
+     * @param Request $request
      * @return array
      */
-    public function registerAction(User $user)
+    public function tokenAction(Request $request)
     {
-        $this->getUserManager()->register($user);
+        $entity = $this->deserialize(new User, $request->getContent(), 'details');
 
-        return ['user' => $user];
+        if ($entity->getToken()) {
+            $entity = $this->getUserManager()->loginByToken($entity);
+        } else {
+            $entity = $this->getUserManager()->loginByCredentials($entity);
+        }
+
+        return $this->response(['token' => $entity->getToken()]);
+    }
+
+    /**
+     * @param string $handler
+     * @param array $params
+     * @return MailContext
+     */
+    private function sendMail($handler, $params = [])
+    {
+        return $this->getMailer()->send($handler, AbstractProvider::PROVIDER_MANDRILL, $params);
+    }
+
+    /**
+     * @return MailManager
+     */
+    private function getMailer()
+    {
+        return $this->get('core.mailer.manager');
+    }
+
+    /**
+     * @return UserRepository
+     */
+    private function getUserRepository()
+    {
+        return $this->getUserManager()->getRepository('UserBundle:User');
+    }
+
+    /**
+     * @Post("logout")
+     * @return array
+     */
+    public function logoutAction()
+    {
+        $this->getUserManager()->logout($this->getUser());
+
+        return $this->response([]);
     }
 
     /**
@@ -47,6 +98,6 @@ class UserController extends FOSRestController
      */
     private function getUserManager()
     {
-        return $this->get('core_user_manager');
+        return $this->get('user.user_manager');
     }
 }

@@ -1,0 +1,4 @@
+api_default_controller:
+    resource: '@CoreBundle/Controller/DefaultController.php'
+    prefix: default
+    type: rest

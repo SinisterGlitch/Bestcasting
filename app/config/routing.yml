@@ -1,4 +1,4 @@
-app:
+api:
     resource: "@CoreBundle/Controller/DefaultController.php"
     type:     rest
     prefix:   api

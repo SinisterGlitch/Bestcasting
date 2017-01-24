@@ -3,10 +3,11 @@
 namespace UserBundle\Security;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use UserBundle\Entity\Repository\UserRepository;
 use UserBundle\Entity\User;
-use UserBundle\Repository\UserRepository;
 
 /**
  * Class UserProvider
@@ -35,25 +36,25 @@ class UserProvider implements UserProviderInterface
     {
         $user = $this->getRepository()->findOneBy(['token' => $token]);
 
-        return $user instanceof User ? $user->getUsername() : '';
-    }
-
-    /**
-     * @param string $username
-     * @return UserInterface|void
-     */
-    public function loadUserByUsername($username)
-    {
-        return $this->getRepository()->findOneBy(['username' => $username]);
+        return $user ? $user->getUsername() : '';
     }
 
     /**
      * @param UserInterface $user
-     * @return UserInterface
+     * @return User
      */
     public function refreshUser(UserInterface $user)
     {
-        return $user;
+        throw new UnsupportedUserException();
+    }
+
+    /**
+     * @param string $username
+     * @return User
+     */
+    public function loadUserByUsername($username)
+    {
+        return $this->getRepository()->findOneBy(['username' => $username]);
     }
 
     /**
@@ -70,6 +71,6 @@ class UserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return 'AppBundle\Entity\User' === $class;
+        return $class === get_class(new User());
     }
 }
