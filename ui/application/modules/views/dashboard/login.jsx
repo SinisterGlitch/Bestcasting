@@ -5,7 +5,6 @@ import Reflux from 'reflux';
 
 import FormMixin from 'mixins/form-mixin'
 import AuthActions from 'actions/auth';
-import AuthStore from 'stores/auth';
 
 import TextInput from 'components/form/text-input';
 import Submit from 'components/form/submit-button';
@@ -24,7 +23,7 @@ export default React.createClass({
     },
 
     onLogin() {
-        this.props.history.pushState(null, '/dashboard');
+        this.props.router.push({pathname: '/dashboard'});
     },
 
     render(){

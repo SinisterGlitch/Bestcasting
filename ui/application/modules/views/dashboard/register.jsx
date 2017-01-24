@@ -31,7 +31,7 @@ export default React.createClass({
     },
 
     onRegister() {
-        this.props.history.pushState('/dashboard');
+        this.props.router.push({pathname: '/dashboard'});
     },
 
     render(){

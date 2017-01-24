@@ -5,21 +5,20 @@ import Reflux from 'reflux';
 
 import FormMixin from 'mixins/form-mixin';
 import TextInput from 'components/form/text-input';
-import Checkbox from 'components/form/checkbox-input';
 import Submit from 'components/form/submit-button';
 
-import ScreensStore from 'modules/stores/slides';
-import ScreensActions from 'modules/actions/slides';
+import SlidesStore from 'modules/stores/slides';
+import SlidesActions from 'modules/actions/slides';
 
 export default React.createClass({
 
     mixins: [
         FormMixin,
-        Reflux.listenTo(ScreensStore, 'onLoadScreen')
+        Reflux.listenTo(SlidesStore, 'onLoadSlide')
     ],
 
     componentDidMount() {
-        ScreensActions.loadScreen(this.props.params.id)
+        SlidesActions.loadSlide(this.props.params.id)
     },
 
     getInitialState() {
@@ -28,14 +27,14 @@ export default React.createClass({
         };
     },
 
-    onLoadScreen() {
+    onLoadSlide() {
         this.setState({
-            slide: ScreensStore.getScreen(this.props.params.id)
+            slide: SlidesStore.getSlide(this.props.params.id)
         });
     },
 
     onSubmit() {
-        ScreensActions.updateScreen(this.props.params.id, this.state.slide);
+        SlidesActions.updateSlide(this.props.params.id, this.state.slide);
     },
 
     render(){
@@ -47,7 +46,7 @@ export default React.createClass({
                 <br/>
                 <TextInput label="Resolution" valueLink={this.linkState('slide.resolution')} />
                 <br/>
-                <TextInput label="Type" valueLink={this.linkState('slide.type')} />
+                <TextInput label="Type" valueLink={this.linkState('slide.data_type')} />
                 <br/>
                 <TextInput label="Size" valueLink={this.linkState('slide.size')} />
                 <br/>
