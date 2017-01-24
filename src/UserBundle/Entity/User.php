@@ -43,18 +43,18 @@ class User implements UserInterface
      * @Type("string")
      *
      * @var string
-     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
      */
-    protected $firstname;
+    protected $first_name;
 
     /**
      * @Groups({"list", "details"})
      * @Type("string")
      *
      * @var string
-     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
      */
-    protected $lastname;
+    protected $last_name;
 
     /**
      * @Groups({"details"})
@@ -148,12 +148,12 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $lastname
+     * @param string $lastName
      * @return $this
      */
-    public function setLastname($lastname)
+    public function setLastName($lastName)
     {
-        $this->lastname = $lastname;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -161,9 +161,9 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getLastname()
+    public function getLastName()
     {
-        return $this->lastname;
+        return $this->last_name;
     }
 
     /**

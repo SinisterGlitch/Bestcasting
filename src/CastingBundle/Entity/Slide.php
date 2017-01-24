@@ -4,9 +4,7 @@ namespace CastingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Table(name="slide")
@@ -58,13 +56,6 @@ class Slide
      * @ORM\Column(name="size", type="string", length=255)
      */
     private $size;
-
-    /**
-     * @var null|UploadedFile
-     * @Groups({"list", "details"})
-     * @Assert\File(maxSize="6000000")
-     */
-    private $file;
 
     /**
      * @var string
@@ -203,29 +194,6 @@ class Slide
     }
 
     /**
-     * @param UploadedFile $file
-     * @return $this
-     */
-    public function setFile(UploadedFile $file = null)
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
-    /**
-     * @return null|string|UploadedFile
-     */
-    public function getFile()
-    {
-        if (!$this->file instanceof UploadedFile && $this->getPath()) {
-            return new File($this->getPublicPath());
-        }
-
-        return $this->file;
-    }
-
-    /**
      * @param null $path
      * @return $this
      */
@@ -242,52 +210,5 @@ class Slide
     public function getPath()
     {
         return $this->path;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRealPath()
-    {
-        return realpath($this->getUploadRootDir() . '/' . $this->getPath());
-    }
-
-    /**
-     * @return string
-     */
-    public function getPublicPath()
-    {
-        return $this->getUploadDir() . '/' . $this->getPath();
-    }
-
-    /**
-     * File upload
-     */
-    public function upload()
-    {
-        if (null === $this->getFile()) {
-            return;
-        }
-
-        $filename = md5(uniqid(rand(), true)) . '.' . $this->getFile()->getClientOriginalExtension();
-        $this->getFile()->move($this->getUploadRootDir(), $filename);
-        $this->path = $filename;
-        $this->file = null;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getUploadRootDir()
-    {
-        return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getUploadDir()
-    {
-        return 'uploads/slides';
     }
 }

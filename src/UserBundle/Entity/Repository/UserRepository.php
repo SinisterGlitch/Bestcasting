@@ -17,7 +17,7 @@ class UserRepository extends EntityRepository
      */
     public function findUserByUsername($username)
     {
-        return $this->findOneByParams(['username' => $username]);
+        return $this->findOneByParams(['user_name' => $username]);
     }
 
     /**
