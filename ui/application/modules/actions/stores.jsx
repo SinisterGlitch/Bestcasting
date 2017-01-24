@@ -5,17 +5,17 @@ import Reflux from 'reflux';
 import Request from 'services/request';
 
 let StoresActions = Reflux.createActions({
-    saveStores:   {children: ['completed','failed']},
-    updateStores: {children: ['completed','failed']},
-    deleteStores: {children: ['completed','failed']},
+    createStore:   {children: ['completed','failed']},
+    updateStore: {children: ['completed','failed']},
+    deleteStore: {children: ['completed','failed']},
     loadStores:   {children: ['completed','failed']},
     loadStore:    {children: ['completed','failed']}
 });
 
 StoresActions.loadStores.listen(() => Request.get('stores/', StoresActions.loadStores));
 StoresActions.loadStore.listen(id => Request.get('stores/' + id, StoresActions.loadStore));
-StoresActions.saveStores.listen(data => Request.post('stores/', data, StoresActions.saveStores));
-StoresActions.updateStores.listen(data => Request.put('stores/', data, StoresActions.updateStores));
-StoresActions.deleteStores.listen(data => Request.delete('stores/', data, StoresActions.deleteStores));
+StoresActions.createStore.listen(data => Request.post('stores/', data, StoresActions.createStore));
+StoresActions.updateStore.listen((id ,data) => Request.put('stores/' + id, data, StoresActions.updateStore));
+StoresActions.deleteStore.listen((id ,data) => Request.delete('stores/' + id, data, StoresActions.deleteStore));
 
 export default StoresActions;

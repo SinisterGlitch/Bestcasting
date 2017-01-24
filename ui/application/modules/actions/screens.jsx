@@ -5,17 +5,17 @@ import Reflux from 'reflux';
 import Request from 'services/request';
 
 let ScreensActions = Reflux.createActions({
-    saveScreens:   {children: ['completed','failed']},
-    updateScreens: {children: ['completed','failed']},
-    deleteScreens: {children: ['completed','failed']},
+    createScreen:   {children: ['completed','failed']},
+    updateScreen: {children: ['completed','failed']},
+    deleteScreen: {children: ['completed','failed']},
     loadScreens:   {children: ['completed','failed']},
     loadScreen:    {children: ['completed','failed']}
 });
 
 ScreensActions.loadScreens.listen(() => Request.get('screens/', ScreensActions.loadScreens));
 ScreensActions.loadScreen.listen(id => Request.get('screens/' + id, ScreensActions.loadScreen));
-ScreensActions.saveScreens.listen(data => Request.post('screens/', data, ScreensActions.saveScreens));
-ScreensActions.updateScreens.listen(data => Request.put('screens/', data, ScreensActions.updateScreens));
-ScreensActions.deleteScreens.listen(data => Request.delete('screens/', data, ScreensActions.deleteScreens));
+ScreensActions.createScreen.listen(data => Request.post('screens/', data, ScreensActions.createScreen));
+ScreensActions.updateScreen.listen((id ,data) => Request.put('screens/' + id, data, ScreensActions.updateScreen));
+ScreensActions.deleteScreen.listen((id ,data) => Request.delete('screens/' + id, data, ScreensActions.deleteScreen));
 
 export default ScreensActions;

@@ -14,7 +14,7 @@ import StoresActions from 'modules/actions/stores';
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(StoresActions.saveStores.completed, 'onSave'),
+        Reflux.listenTo(StoresActions.createStore.completed, 'onSave'),
         FormMixin
     ],
 
@@ -46,7 +46,7 @@ export default React.createClass({
                 <br/>
                 <Checkbox label="Active" checkedLink={this.linkState('store.active')} />
                 <br/>
-                <Submit value="Save" onClick={StoresActions.saveStores.bind(this, this.state.store)}/>
+                <Submit value="Save" onClick={StoresActions.createStore.bind(this, this.state.store)}/>
             </div>
         )
     }

@@ -5,17 +5,17 @@ import Reflux from 'reflux';
 import Request from 'services/request';
 
 let SlidesActions = Reflux.createActions({
-    saveSlides:   {children: ['completed','failed']},
-    updateSlides: {children: ['completed','failed']},
-    deleteSlides: {children: ['completed','failed']},
+    createSlide:   {children: ['completed','failed']},
+    updateSlide: {children: ['completed','failed']},
+    deleteSlide: {children: ['completed','failed']},
     loadSlides:   {children: ['completed','failed']},
     loadSlide:    {children: ['completed','failed']}
 });
 
 SlidesActions.loadSlides.listen(() => Request.get('slides/', SlidesActions.loadSlides));
 SlidesActions.loadSlide.listen(id => Request.get('slides/' + id, SlidesActions.loadSlide));
-SlidesActions.saveSlides.listen(data => Request.post('slides/', data, SlidesActions.saveSlides));
-SlidesActions.updateSlides.listen(data => Request.put('slides/', data, SlidesActions.updateSlides));
-SlidesActions.deleteSlides.listen(data => Request.delete('slides/', data, SlidesActions.deleteSlides));
+SlidesActions.createSlide.listen(data => Request.post('slides/', data, SlidesActions.createSlide));
+SlidesActions.updateSlide.listen((id ,data) => Request.put('slides/' + id, data, SlidesActions.updateSlide));
+SlidesActions.deleteSlide.listen((id ,data) => Request.delete('slides/' + id, data, SlidesActions.deleteSlide));
 
 export default SlidesActions;

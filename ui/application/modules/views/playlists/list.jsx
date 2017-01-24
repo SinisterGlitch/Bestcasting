@@ -5,28 +5,28 @@ import { Link } from 'react-router';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import StoresStore from 'modules/stores/stores';
-import StoresActions from 'modules/actions/stores';
+import PlaylistsStore from 'modules/stores/playlists';
+import PlaylistsActions from 'modules/actions/playlists';
 
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(StoresStore, 'onLoadStores')
+        Reflux.listenTo(PlaylistsStore, 'onLoadPlaylists')
     ],
 
     componentDidMount() {
-        StoresActions.loadStores()
+        PlaylistsActions.loadPlaylists()
     },
 
     getInitialState() {
         return {
-            stores: StoresStore.getStores()
+            playlists: PlaylistsStore.getPlaylists()
         }
     },
 
-    onLoadStores() {
+    onLoadPlaylists() {
         this.setState({
-            stores: StoresStore.getStores()
+            playlists: PlaylistsStore.getPlaylists()
         });
     },
 
@@ -42,23 +42,23 @@ export default React.createClass({
                     </tr>
                     </thead>
                     <tbody>
-                        {_.map(this.state.stores, this.renderRow)}
+                        {_.map(this.state.playlists, this.renderRow)}
                     </tbody>
                 </table>
             </div>
         )
     },
 
-    renderRow(store) {
-        if (_.isUndefined(store)) {
+    renderRow(playlists) {
+        if (_.isUndefined(playlists)) {
             return;
         }
 
         return (
-            <tr key={store.id}>
-                <td>{store.name}</td>
-                <td><Link key="detail" to={'/stores/detail/'+store.id}>detail</Link></td>
-                <td><Link key="edit" to={'/stores/edit/'+store.id}>edit</Link></td>
+            <tr key={playlists.id}>
+                <td>{playlists.name}</td>
+                <td><Link key="detail" to={'/playlists/detail/'+playlists.id}>detail</Link></td>
+                <td><Link key="edit" to={'/playlists/edit/'+playlists.id}>edit</Link></td>
             </tr>
         );
     }

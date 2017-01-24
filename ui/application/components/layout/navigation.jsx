@@ -31,9 +31,10 @@ export default React.createClass({
             AuthStore.getToken()
                 ? {label: 'logout', route: '/dashboard/logout'}
                 : {label: 'login', route: '/dashboard/login'},
-            {label: 'register', route: '/dashboard/register'}
+                  {label: 'register', route: '/dashboard/register'}
         ]}
     ],
+
 
     renderItem(item) {
         if (typeof item.route != 'object') {

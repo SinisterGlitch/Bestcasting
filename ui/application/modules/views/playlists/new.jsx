@@ -4,23 +4,22 @@ import React from 'react';
 import Reflux from 'reflux';
 
 import FormMixin from 'mixins/form-mixin';
-import Checkbox from 'components/form/checkbox-input';
 import TextInput from 'components/form/text-input';
 import Submit from 'components/form/submit-button';
 
 import AuthStore from 'stores/auth';
-import StoresActions from 'modules/actions/stores';
+import PlaylistsActions from 'modules/actions/playlists';
 
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(StoresActions.saveStores.completed, 'onSave'),
+        Reflux.listenTo(PlaylistsActions.createPlaylist.completed, 'onSave'),
         FormMixin
     ],
 
     getInitialState() {
         return {
-            store: {
+            playlist: {
                 active: false,
                 user: {
                     id: AuthStore.getUser().id
@@ -32,21 +31,11 @@ export default React.createClass({
     render(){
         return (
             <div className="content">
-                <TextInput label="Name" valueLink={this.linkState('store.name')} />
+                <TextInput label="Name" valueLink={this.linkState('playlist.name')} />
                 <br/>
-                <TextInput label="Description" valueLink={this.linkState('store.description')} />
+                <TextInput label="Description" valueLink={this.linkState('playlist.description')} />
                 <br/>
-                <TextInput label="Street" valueLink={this.linkState('store.street')} />
-                <br/>
-                <TextInput label="House number" valueLink={this.linkState('store.house_number')} />
-                <br/>
-                <TextInput label="City" valueLink={this.linkState('store.city')} />
-                <br/>
-                <TextInput label="Zipcode" valueLink={this.linkState('store.zip_code')} />
-                <br/>
-                <Checkbox label="Active" checkedLink={this.linkState('store.active')} />
-                <br/>
-                <Submit value="Save" onClick={StoresActions.saveStores.bind(this, this.state.store)}/>
+                <Submit value="Save" onClick={PlaylistsActions.createPlaylist.bind(this, this.state.playlist)}/>
             </div>
         )
     }

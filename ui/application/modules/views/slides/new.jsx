@@ -14,7 +14,7 @@ import SlidesActions from 'modules/actions/slides';
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(SlidesActions.saveSlides.completed, 'onSave'),
+        Reflux.listenTo(SlidesActions.createSlide.completed, 'onSave'),
         FormMixin
     ],
 
@@ -36,17 +36,15 @@ export default React.createClass({
                 <br/>
                 <TextInput label="Description" valueLink={this.linkState('slide.description')} />
                 <br/>
-                <TextInput label="Street" valueLink={this.linkState('slide.street')} />
+                <TextInput label="Resolution" valueLink={this.linkState('slide.resolution')} />
                 <br/>
-                <TextInput label="House number" valueLink={this.linkState('slide.house_number')} />
+                <TextInput label="Type" valueLink={this.linkState('slide.type')} />
                 <br/>
-                <TextInput label="City" valueLink={this.linkState('slide.city')} />
+                <TextInput label="Size" valueLink={this.linkState('slide.size')} />
                 <br/>
-                <TextInput label="Zipcode" valueLink={this.linkState('slide.zip_code')} />
+                <TextInput label="Path" valueLink={this.linkState('slide.path')} />
                 <br/>
-                <Checkbox label="Active" checkedLink={this.linkState('slide.active')} />
-                <br/>
-                <Submit value="Save" onClick={SlidesActions.saveSlides.bind(this, this.state.slide)}/>
+                <Submit value="Save" onClick={SlidesActions.createSlide.bind(this, this.state.slide)}/>
             </div>
         )
     }

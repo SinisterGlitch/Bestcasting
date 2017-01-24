@@ -35,7 +35,7 @@ export default React.createClass({
     },
 
     onSubmit() {
-        ScreensActions.updateScreens(this.state.slide);
+        ScreensActions.updateScreen(this.props.params.id, this.state.slide);
     },
 
     render(){
@@ -45,15 +45,13 @@ export default React.createClass({
                 <br/>
                 <TextInput label="Description" valueLink={this.linkState('slide.description')} />
                 <br/>
-                <TextInput label="Street" valueLink={this.linkState('slide.street')} />
+                <TextInput label="Resolution" valueLink={this.linkState('slide.resolution')} />
                 <br/>
-                <TextInput label="House number" valueLink={this.linkState('slide.house_number')} />
+                <TextInput label="Type" valueLink={this.linkState('slide.type')} />
                 <br/>
-                <TextInput label="City" valueLink={this.linkState('slide.city')} />
+                <TextInput label="Size" valueLink={this.linkState('slide.size')} />
                 <br/>
-                <TextInput label="Zipcode" valueLink={this.linkState('slide.zip_code')} />
-                <br/>
-                <Checkbox label="Active" checkedLink={this.linkState('slide.active')} />
+                <TextInput label="Path" valueLink={this.linkState('slide.path')} />
                 <br/>
                 <Submit value="Save" onClick={this.onSubmit} />
             </div>

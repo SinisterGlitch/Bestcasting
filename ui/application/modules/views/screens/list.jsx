@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import ScreensStore from 'modules/stores/screens';
+    import ScreensStore from 'modules/stores/screens';
 import ScreensActions from 'modules/actions/screens';
 
 export default React.createClass({

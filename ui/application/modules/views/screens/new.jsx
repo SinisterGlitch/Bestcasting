@@ -14,7 +14,7 @@ import ScreensActions from 'modules/actions/screens';
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(ScreensActions.saveScreens.completed, 'onSave'),
+        Reflux.listenTo(ScreensActions.createScreen.completed, 'onSave'),
         FormMixin
     ],
 
@@ -36,17 +36,11 @@ export default React.createClass({
                 <br/>
                 <TextInput label="Description" valueLink={this.linkState('screen.description')} />
                 <br/>
-                <TextInput label="Street" valueLink={this.linkState('screen.street')} />
+                <TextInput label="Type" valueLink={this.linkState('screen.type')} />
                 <br/>
-                <TextInput label="House number" valueLink={this.linkState('screen.house_number')} />
+                <TextInput label="Resolution" valueLink={this.linkState('screen.resolution')} />
                 <br/>
-                <TextInput label="City" valueLink={this.linkState('screen.city')} />
-                <br/>
-                <TextInput label="Zipcode" valueLink={this.linkState('screen.zip_code')} />
-                <br/>
-                <Checkbox label="Active" checkedLink={this.linkState('screen.active')} />
-                <br/>
-                <Submit value="Save" onClick={ScreensActions.saveScreens.bind(this, this.state.screen)}/>
+                <Submit value="Save" onClick={ScreensActions.createScreen.bind(this, this.state.screen)}/>
             </div>
         )
     }
