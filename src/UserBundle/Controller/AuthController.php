@@ -35,7 +35,7 @@ class AuthController extends BaseController
             $entity = $this->getUserManager()->loginByCredentials($entity);
         }
 
-        return ['token' => $entity->getToken()];
+        return $this->serialize($entity, 'details');
     }
 
     /**

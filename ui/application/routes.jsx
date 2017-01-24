@@ -4,7 +4,6 @@ import React from 'react';
 import {Router, Route, Link, IndexRoute} from 'react-router';
 import App from 'components/layout/app';
 
-// create browser history for navigating
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 let history = createBrowserHistory();
 

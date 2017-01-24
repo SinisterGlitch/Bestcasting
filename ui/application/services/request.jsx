@@ -3,6 +3,7 @@
 import SuperAgent from 'superagent';
 import NotificationActions from 'actions/notification';
 import AuthStore from 'stores/auth';
+import Constants from 'constants';
 
 export default {
 
@@ -12,8 +13,8 @@ export default {
      */
     get(url, callback) {
         SuperAgent
-            .get(url)
-            .set('X-API-Key', AuthStore.getToken())
+            .get(Constants.API_PREFIX + url)
+            .set('authorization', AuthStore.getToken())
             .end((err, res) => this.responseHandler(res, callback));
     },
 
@@ -24,8 +25,8 @@ export default {
      */
     post(url, data, callback) {
         SuperAgent
-            .post(url, data)
-            .set('X-API-Key', AuthStore.getToken())
+            .post(Constants.API_PREFIX + url, data)
+            .set('authorization', AuthStore.getToken())
             .end((err, res) => this.responseHandler(res, callback));
     },
 
@@ -36,8 +37,8 @@ export default {
      */
     put(url, data, callback) {
         SuperAgent
-            .put(url, data)
-            .set('X-API-Key', AuthStore.getToken())
+            .put(Constants.API_PREFIX + url, data)
+            .set('authorization', AuthStore.getToken())
             .end((err, res) => this.responseHandler(res, callback));
     },
 
@@ -49,8 +50,8 @@ export default {
 
     patch(url, data, callback) {
         SuperAgent
-            .patch(url, data)
-            .set('X-API-Key', AuthStore.getToken())
+            .patch(Constants.API_PREFIX + url, data)
+            .set('authorization', AuthStore.getToken())
             .end((err, res) => this.responseHandler(res, callback));
     },
 
@@ -61,8 +62,8 @@ export default {
      */
     delete(url, data, callback) {
         SuperAgent
-            .del(url, data)
-            .set('X-API-Key', AuthStore.getToken())
+            .del(Constants.API_PREFIX + url, data)
+            .set('authorization', AuthStore.getToken())
             .end((err, res) => this.responseHandler(res, callback));
     },
 
