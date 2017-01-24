@@ -14,7 +14,7 @@ class BaseController extends FOSRestController
 {
     /**
      * @param mixed $entity
-     * @param array|null $groups
+     * @param array|string $groups
      * @param bool $allowNull
      * @return mixed
      */

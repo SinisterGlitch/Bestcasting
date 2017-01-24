@@ -2,9 +2,9 @@
 
 namespace CastingBundle\Entity;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\Groups;
 use UserBundle\Entity\User;
 
 /**
@@ -15,6 +15,8 @@ class Store
 {
     /**
      * @var integer
+     * @Groups({"list", "details"})
+     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -23,48 +25,56 @@ class Store
 
     /**
      * @var string
+     * @Groups({"list", "details"})
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
+     * @Groups({"list", "details"})
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
      * @var string
+     * @Groups({"list", "details"})
      * @ORM\Column(name="street", type="string", length=255)
      */
     private $street;
 
     /**
      * @var string
+     * @Groups({"list", "details"})
      * @ORM\Column(name="house_number", type="string", length=255)
      */
     private $houseNumber;
 
     /**
      * @var string
+     * @Groups({"list", "details"})
      * @ORM\Column(name="city", type="string", length=255)
      */
     private $city;
 
     /**
      * @var string
+     * @Groups({"list", "details"})
      * @ORM\Column(name="zip_code", type="string", length=255)
      */
     private $zipCode;
 
     /**
+     * @var User
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="stores")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      **/
     private $user;
 
     /**
-     * @var Collection|Screen[]
+     * @var Screen[]
+     * @Groups({"details"})
      * @ORM\OneToMany(targetEntity="Screen", mappedBy="store")
      **/
     private $screens;

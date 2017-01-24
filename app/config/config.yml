@@ -7,6 +7,8 @@ imports:
 parameters:
     locale: en
 
+
+# Framework Configuration
 framework:
     serializer:
         enabled: true
@@ -30,10 +32,12 @@ framework:
     http_method_override: true
     assets: ~
 
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+
 
 # Doctrine Configuration
 doctrine:
@@ -50,6 +54,7 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -58,11 +63,13 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+
 #SensioFrameWorkBundle Configuration
 sensio_framework_extra:
     view:
         annotations: true
     request: { converters: true }
+
 
 #FOSRestBundle Configuration
 fos_rest:

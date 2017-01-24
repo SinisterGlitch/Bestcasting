@@ -7,6 +7,7 @@ use CastingBundle\Entity\Store;
 use CoreBundle\Controller\BaseController;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\NamePrefix;
 use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Put;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class StoreController
+ * @NamePrefix("casting_store_")
  * @package CastingBundle\Controller
  */
 class StoreController extends BaseController
@@ -23,7 +25,7 @@ class StoreController extends BaseController
      * @param integer $id
      * @return array
      */
-    public function getSingleAction($id)
+    public function getStoreAction($id)
     {
         $entity = $this->getRepository()->find($id);
 
@@ -31,18 +33,18 @@ class StoreController extends BaseController
             throw $this->createNotFoundException();
         }
 
-        return $this->getSerializer()->serialize($entity, 'details');
+        return $this->serialize($entity, 'details');
     }
 
     /**
      * @Get("")
      * @return array
      */
-    public function getAllAction()
+    public function getStoresAction()
     {
         $models = [];
         foreach ($this->getRepository()->findAll() as $entity) {
-            $models[] = $this->getSerializer()->serialize($entity, 'list');
+            $models[] = $this->serialize($entity, 'list');
         }
 
         return $models;
@@ -53,15 +55,14 @@ class StoreController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function postAction(Request $request)
+    public function postStoreAction(Request $request)
     {
-        $modelManager = $this->getSerializer();
-        $entity = $modelManager->deserialize(new Store(), $request->getContent(), 'details');
+        $entity = $this->deserialize(new Store(), $request->getContent(), 'details');
 
         $this->getManager()->persist($entity);
         $this->getManager()->flush();
 
-        return $modelManager->serialize($entity, 'details');
+        return $this->serialize($entity, 'details');
     }
 
     /**
@@ -70,21 +71,20 @@ class StoreController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function putAction($id, Request $request)
+    public function putStoreAction($id, Request $request)
     {
-        $modelManager = $this->getSerializer();
         $entity = $this->getRepository()->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException();
         }
 
-        $entity = $modelManager->deserialize($entity, $request->getContent(), 'details', true);
+        $entity = $this->deserialize($entity, $request->getContent(), 'details', true);
 
         $this->getManager()->merge($entity);
         $this->getManager()->flush();
 
-        return $modelManager->serialize($entity, 'details');
+        return $this->serialize($entity, 'details');
     }
 
     /**
@@ -93,21 +93,20 @@ class StoreController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function patchAction($id, Request $request)
+    public function patchStoreAction($id, Request $request)
     {
-        $modelManager = $this->getSerializer();
         $entity = $this->getRepository()->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException();
         }
 
-        $entity = $modelManager->deserialize($entity, $request->getContent(), 'details');
+        $entity = $this->deserialize($entity, $request->getContent(), 'details');
 
         $this->getManager()->persist($entity);
         $this->getManager()->flush();
 
-        return $modelManager->serialize($entity, 'details');
+        return $this->serialize($entity, 'details');
     }
 
     /**
@@ -115,7 +114,7 @@ class StoreController extends BaseController
      * @param integer $id
      * @return array
      */
-    public function deleteAction($id)
+    public function deleteStoreAction($id)
     {
         $entity = $this->getRepository()->find($id);
 

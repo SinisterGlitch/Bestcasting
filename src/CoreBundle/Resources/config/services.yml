@@ -23,11 +23,6 @@ services:
     core.mailer.manager:
         class: 'CoreBundle\Service\Mailer\MailManager'
         arguments: ['@logger']
-        calls:
-            - [addProvider, ['smtp', '@core.mailer.provider.smtp']]
-            - [addHandler, ['access', '@core.mailer.handler.access']]
-            - [addHandler, ['access', '@core.mailer.handler._access']]
-            - [addHandler, ['activation', '@core.mailer.handler._activation']]
 
     core.mailer.context:
         class: 'CoreBundle\Service\Mailer\MailContext'
@@ -41,6 +36,8 @@ services:
     core.mailer.provider.smtp:
         class: 'CoreBundle\Service\Mailer\Providers\SmtpProvider'
         parent: 'core.mailer.provider.abstract'
+        tags:
+            - { name: 'core.mailer.provider' }
 
     core.mailer.handler.abstract:
         class: 'CoreBundle\Service\Mailer\Handlers\AbstractHandler'
@@ -52,13 +49,19 @@ services:
         class: 'CoreBundle\Service\Mailer\Handlers\AccessHandler'
         parent: 'core.mailer.handler.abstract'
         public: false
+        tags:
+            - { name: 'core.mailer.handler' }
 
     core.mailer.handler._access:
         class: 'CoreBundle\Service\Mailer\Handlers\AccessHandler'
         parent: 'core.mailer.handler.abstract'
         public: false
+        tags:
+            - { name: 'core.mailer.handler' }
 
     core.mailer.handler._activation:
         class: 'CoreBundle\Service\Mailer\Handlers\ActivationHandler'
         parent: 'core.mailer.handler.abstract'
         public: false
+        tags:
+            - { name: 'core.mailer.handler' }
