@@ -8,8 +8,8 @@ import AuthStore from 'stores/auth';
 export default React.createClass({
 
     hasAccess() {
-        if (!AuthStore.getToken() && !this.props.router.location.pathname != '/dashboard/login') {
-            this.props.router.push({pathname: '/dashboard/login'});
+        if (!AuthStore.getToken() && !this.props.location.pathname != '/dashboard/login') {
+            // this.props.router.push(null, '/dashboard/login');
         }
     },
 
