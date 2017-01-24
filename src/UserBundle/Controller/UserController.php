@@ -4,14 +4,14 @@ namespace UserBundle\Controller;
 
 use CoreBundle\Controller\BaseController;
 use FOS\RestBundle\Controller\Annotations\NamePrefix;
+use FOS\RestBundle\Controller\Annotations\Patch;
+use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Put;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use CoreBundle\Service\Mailer\MailContext;
-use CoreBundle\Service\Mailer\MailManager;
-use CoreBundle\Service\Mailer\Providers\AbstractProvider;
-use UserBundle\Entity\User;
 use UserBundle\Entity\Repository\UserRepository;
+use UserBundle\Entity\User;
 use UserBundle\Security\UserManager;
 
 /**
@@ -22,82 +22,131 @@ use UserBundle\Security\UserManager;
 class UserController extends BaseController
 {
     /**
-     * @Post("access")
-     * @param Request $request
+     * @Get("{id}")
+     * @param integer $id
      * @return array
      */
-    public function postAccessAction(Request $request)
+    public function getSingleAction($id)
     {
-        $email = $request->query->get('email', null);
+        $entity = $this->getRepository()->find($id);
 
-        if ($email === null) {
-            throw new BadRequestHttpException('email is required');
+        if (!$entity) {
+            throw $this->createNotFoundException();
         }
 
-        $user = $this->getUserRepository()->findOneBy(['email' => $email]);
-        $this->sendMail('access', ['user' => $user]);
+        return $this->serialize($entity, 'details');
     }
 
     /**
-     * @Post("token")
+     * @Get("")
+     * @return array
+     */
+    public function getAllAction()
+    {
+        $models = [];
+        foreach ($this->getRepository()->findAll() as $entity) {
+            $models[] = $this->serialize($entity, 'list');
+        }
+
+        return $models;
+    }
+
+    /**
+     * @Post("")
      * @param Request $request
      * @return array
      */
-    public function postTokenAction(Request $request)
+    public function postAction(Request $request)
     {
         $entity = $this->deserialize(new User, $request->getContent(), 'details');
+        $entity = $this->getUserManager()->register($entity);
 
-        if ($entity->getToken()) {
-            $entity = $this->getUserManager()->loginByToken($entity);
-        } else {
-            $entity = $this->getUserManager()->loginByCredentials($entity);
-        }
-
-        return ['token' => $entity->getToken()];
+        return $this->serialize($entity, 'details');
     }
 
     /**
-     * @param string $handler
-     * @param array $params
-     * @return MailContext
-     */
-    private function sendMail($handler, $params = [])
-    {
-        return $this->getMailer()->send($handler, AbstractProvider::PROVIDER_MANDRILL, $params);
-    }
-
-    /**
-     * @return UserRepository
-     */
-    private function getUserRepository()
-    {
-        return $this->getUserManager()->getRepository();
-    }
-
-    /**
-     * @Post("logout")
+     * @Put("{id}")
+     * @param integer $id
+     * @param Request $request
      * @return array
      */
-    public function postLogoutAction()
+    public function putAction($id, Request $request)
     {
-        $this->getUserManager()->logout($this->getUser());
+        $entity = $this->getSerializer()->reference(new User(), $id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException();
+        }
+
+        $entity = $this->deserialize($entity, $request->getContent(), 'details', true);
+        $entity = $this->getUserManager()->updatePassword($entity);
+
+        $this->getManager()->merge($entity);
+        $this->getManager()->flush();
+
+        return $this->serialize($entity, 'details');
+    }
+
+    /**
+     * @Patch("{id}")
+     * @param integer $id
+     * @param Request $request
+     * @return array
+     */
+    public function patchAction($id, Request $request)
+    {
+        $entity = $this->getRepository()->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException();
+        }
+
+        $password = $entity->getPassword();
+        $entity = $this->deserialize($entity, $request->getContent(), 'details');
+
+        if ($entity->getPassword() != $password) {
+            $entity = $this->getUserManager()->updatePassword($entity);
+        }
+
+        $this->getManager()->persist($entity);
+        $this->getManager()->flush();
+
+        return $this->serialize($entity, 'details');
+    }
+
+    /**
+     * @Delete("{id}")
+     *
+     * @param integer $id
+     * @return array
+     */
+    public function deleteAction($id)
+    {
+        $entity = $this->getSerializer()->reference(new User(), $id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException();
+        }
+
+        $this->getManager()->remove($entity);
+        $this->getManager()->flush();
 
         return [];
     }
 
     /**
-     * @return UserManager
+     * @return UserRepository
      */
-    private function getUserManager()
+    private function getRepository()
     {
-        return $this->get('user.user.manager');
+        return $this->getManager()->getRepository('UserBundle:User');
     }
 
     /**
-     * @return MailManager
+     * @return UserManager
      */
-    private function getMailer()
+    public function getUserManager()
     {
-        return $this->get('core.mailer.manager');
+        return $this->get('user.user.manager');
     }
 }

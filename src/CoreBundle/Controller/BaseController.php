@@ -3,6 +3,7 @@
 namespace CoreBundle\Controller;
 
 use CoreBundle\Service\Serializer\SerializerManager;
+use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 
 /**
@@ -37,8 +38,16 @@ class BaseController extends FOSRestController
     /**
      * @return SerializerManager
      */
-    private function getSerializer()
+    protected function getSerializer()
     {
         return $this->get('core.serializer.manager');
+    }
+
+    /**
+     * @return EntityManager
+     */
+    protected function getManager()
+    {
+       return $this->getDoctrine()->getManager();
     }
 }

@@ -29,15 +29,6 @@ class User implements UserInterface
      * @Type("string")
      *
      * @var string
-     * @ORM\Column(name="code", type="string", length=255, unique=true, nullable=true)
-     */
-    protected $code;
-
-    /**
-     * @Groups({"list", "details"})
-     * @Type("string")
-     *
-     * @var string
      * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
     protected $username;
@@ -94,15 +85,6 @@ class User implements UserInterface
 
     /**
      * @Groups({"list", "details"})
-     * @Type("string")
-     *
-     * @var string
-     * @ORM\Column(name="profile_image", type="string", length=255, nullable=true)
-     */
-    protected $profile_image;
-
-    /**
-     * @Groups({"list", "details"})
      * @Type("boolean")
      *
      * @var boolean
@@ -118,18 +100,6 @@ class User implements UserInterface
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     protected $email;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime")
-     */
-    protected $created;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime")
-     */
-    protected $updated;
 
     /**
      * @return integer
@@ -194,44 +164,6 @@ class User implements UserInterface
     public function getLastname()
     {
         return $this->lastname;
-    }
-
-    /**
-     * @param \DateTime $created
-     * @return $this
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * @param \DateTime $updated
-     * @return $this
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
     }
 
     /**
