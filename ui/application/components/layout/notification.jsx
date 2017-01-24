@@ -12,13 +12,20 @@ export default React.createClass({
     ],
 
     getMessage() {
+        let result = null;
         let status = NotificationStore.getStatus();
 
         if (status >= 400 && status < 500) {
-            return 'error';
+            result = 'error';
         } else if (status >= 200 && status < 300) {
-            return 'success';
+            result ='success';
         }
+
+        if (NotificationStore.getMessage()) {
+            result = NotificationStore.getMessage();
+        }
+
+        return result;
     },
 
     getClassName() {

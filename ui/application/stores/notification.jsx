@@ -18,16 +18,24 @@ export default Reflux.createStore({
     method: null,
 
     /**
+     * @import {string}
+     */
+    message: null,
+
+    /**
      * @param {int} status
      * @param {string} method
+     * @param {string} message
      */
-    onShow(status, method) {
+    onShow(status, method, message = null) {
         if (method == 'GET') {
             return;
         }
 
         this.status = status;
         this.method = method;
+        this.message = message;
+
         setTimeout(NotificationActions.hide, 3000);
         this.trigger();
     },
@@ -42,5 +50,12 @@ export default Reflux.createStore({
      */
     getStatus() {
         return this.status;
+    },
+
+    /**
+     * @return {int}
+     */
+    getMessage() {
+        return this.message;
     }
 });
