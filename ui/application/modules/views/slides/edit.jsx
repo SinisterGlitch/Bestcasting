@@ -4,35 +4,43 @@ import React from 'react';
 import Reflux from 'reflux';
 
 import FormMixin from 'mixins/form-mixin';
-import Checkbox from 'components/form/checkbox-input';
 import TextInput from 'components/form/text-input';
+import Checkbox from 'components/form/checkbox-input';
 import Submit from 'components/form/submit-button';
 
-import AuthSlide from 'slides/auth';
-import SlidesSlide from 'modules/slides/slides';
-import SlidesActions from 'modules/actions/slides';
+import ScreensStore from 'modules/stores/slides';
+import ScreensActions from 'modules/actions/slides';
 
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(SlidesActions.saveSlides.completed, 'onSave'),
-        FormMixin
+        FormMixin,
+        Reflux.listenTo(ScreensStore, 'onLoadScreen')
     ],
+
+    componentDidMount() {
+        ScreensActions.loadScreen(this.props.params.id)
+    },
 
     getInitialState() {
         return {
-            slide: {
-                active: false,
-                user: {
-                    id: AuthSlide.getUser().id
-                }
-            }
-        }
+            slide: {}
+        };
+    },
+
+    onLoadScreen() {
+        this.setState({
+            slide: ScreensStore.getScreen(this.props.params.id)
+        });
+    },
+
+    onSubmit() {
+        ScreensActions.updateScreens(this.state.slide);
     },
 
     render(){
         return (
-            <div className="content">
+            <div key="content">
                 <TextInput label="Name" valueLink={this.linkState('slide.name')} />
                 <br/>
                 <TextInput label="Description" valueLink={this.linkState('slide.description')} />
@@ -47,8 +55,8 @@ export default React.createClass({
                 <br/>
                 <Checkbox label="Active" checkedLink={this.linkState('slide.active')} />
                 <br/>
-                <Submit value="Save" onClick={SlidesActions.saveSlides.bind(this, this.state.slide)}/>
+                <Submit value="Save" onClick={this.onSubmit} />
             </div>
-        )
+        );
     }
 });

@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import SlidesActions from 'modules/actions/slides';
 
-export default Reflux.createSlide({
+export default Reflux.createStore({
     listenables: SlidesActions,
 
     /**

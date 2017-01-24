@@ -8,8 +8,7 @@ import Checkbox from 'components/form/checkbox-input';
 import TextInput from 'components/form/text-input';
 import Submit from 'components/form/submit-button';
 
-import AuthScreen from 'screens/auth';
-import ScreensScreen from 'modules/screens/screens';
+import AuthScreen from 'stores/auth';
 import ScreensActions from 'modules/actions/screens';
 
 export default React.createClass({

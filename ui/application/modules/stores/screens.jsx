@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import ScreensActions from 'modules/actions/screens';
 
-export default Reflux.createScreen({
+export default Reflux.createStore({
     listenables: ScreensActions,
 
     /**

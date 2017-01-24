@@ -8,14 +8,14 @@ import TextInput from 'components/form/text-input';
 import Checkbox from 'components/form/checkbox-input';
 import Submit from 'components/form/submit-button';
 
-import ScreensScreen from 'modules/stores/stores';
+import ScreensStore from 'modules/stores/stores';
 import ScreensActions from 'modules/actions/stores';
 
 export default React.createClass({
 
     mixins: [
         FormMixin,
-        Reflux.listenTo(ScreensScreen, 'onLoadScreen')
+        Reflux.listenTo(ScreensStore, 'onLoadScreen')
     ],
 
     componentDidMount() {
@@ -30,7 +30,7 @@ export default React.createClass({
 
     onLoadScreen() {
         this.setState({
-            store: ScreensScreen.getScreen(this.props.params.id)
+            store: ScreensStore.getScreen(this.props.params.id)
         });
     },
 

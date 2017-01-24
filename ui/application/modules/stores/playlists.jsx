@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import PlaylistsActions from 'modules/actions/playlists';
 
-export default Reflux.createPlaylist({
+export default Reflux.createStore({
     listenables: PlaylistsActions,
 
     /**

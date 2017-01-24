@@ -4,8 +4,7 @@ import React from 'react';
 import {Router, Route} from 'react-router';
 import App from 'components/layout/app';
 
-import createBrowserHistory from 'history/lib/createBrowserHistory';
-let history = createBrowserHistory();
+import history from 'history';
 
 // dashboard
 import notFoundView from 'modules/views/dashboard/not-found';
@@ -40,8 +39,8 @@ import slidesNewView from 'modules/views/slides/new';
 export default (
     <Router history={history}>
         <Route component={App} path="/">
-            <Route component={dashboardLoginView} path="dashboard/login" />
             <Route component={dashboardIndexView} path="dashboard" />
+            <Route component={dashboardLoginView} path="dashboard/login" />
             <Route component={dashboardRegisterView} path="dashboard/register" />
 
             <Route component={storesListView} path="stores" />

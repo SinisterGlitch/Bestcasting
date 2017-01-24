@@ -5,13 +5,13 @@ import { Link } from 'react-router';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import ScreensScreen from 'modules/screens/screens';
+import ScreensStore from 'modules/stores/screens';
 import ScreensActions from 'modules/actions/screens';
 
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(ScreensScreen, 'onLoadScreens')
+        Reflux.listenTo(ScreensStore, 'onLoadScreens')
     ],
 
     componentDidMount() {
@@ -20,13 +20,13 @@ export default React.createClass({
 
     getInitialState() {
         return {
-            screens: ScreensScreen.getScreens()
+            screens: ScreensStore.getScreens()
         }
     },
 
     onLoadScreens() {
         this.setState({
-            screens: ScreensScreen.getScreens()
+            screens: ScreensStore.getScreens()
         });
     },
 

@@ -9,7 +9,6 @@ import TextInput from 'components/form/text-input';
 import Submit from 'components/form/submit-button';
 
 import AuthStore from 'stores/auth';
-import StoresStore from 'modules/stores/stores';
 import StoresActions from 'modules/actions/stores';
 
 export default React.createClass({

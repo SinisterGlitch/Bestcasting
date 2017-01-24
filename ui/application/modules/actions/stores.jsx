@@ -4,18 +4,18 @@ import React from 'react';
 import Reflux from 'reflux';
 import Request from 'services/request';
 
-let ScreensActions = Reflux.createActions({
-    saveScreens:   {children: ['completed','failed']},
-    updateScreens: {children: ['completed','failed']},
-    deleteScreens: {children: ['completed','failed']},
-    loadScreens:   {children: ['completed','failed']},
-    loadScreen:    {children: ['completed','failed']}
+let StoresActions = Reflux.createActions({
+    saveStores:   {children: ['completed','failed']},
+    updateStores: {children: ['completed','failed']},
+    deleteStores: {children: ['completed','failed']},
+    loadStores:   {children: ['completed','failed']},
+    loadStore:    {children: ['completed','failed']}
 });
 
-ScreensActions.loadScreens.listen(() => Request.get('stores/', ScreensActions.loadScreens));
-ScreensActions.loadScreen.listen(id => Request.get('stores/' + id, ScreensActions.loadScreen));
-ScreensActions.saveScreens.listen(data => Request.post('stores/', data, ScreensActions.saveScreens));
-ScreensActions.updateScreens.listen(data => Request.put('stores/', data, ScreensActions.updateScreens));
-ScreensActions.deleteScreens.listen(data => Request.delete('stores/', data, ScreensActions.deleteScreens));
+StoresActions.loadStores.listen(() => Request.get('stores/', StoresActions.loadStores));
+StoresActions.loadStore.listen(id => Request.get('stores/' + id, StoresActions.loadStore));
+StoresActions.saveStores.listen(data => Request.post('stores/', data, StoresActions.saveStores));
+StoresActions.updateStores.listen(data => Request.put('stores/', data, StoresActions.updateStores));
+StoresActions.deleteStores.listen(data => Request.delete('stores/', data, StoresActions.deleteStores));
 
-export default ScreensActions;
+export default StoresActions;

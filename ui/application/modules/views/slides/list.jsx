@@ -5,13 +5,13 @@ import { Link } from 'react-router';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import SlidesSlide from 'modules/slides/slides';
+import SlidesStore from 'modules/stores/slides';
 import SlidesActions from 'modules/actions/slides';
 
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(SlidesSlide, 'onLoadSlides')
+        Reflux.listenTo(SlidesStore, 'onLoadSlides')
     ],
 
     componentDidMount() {
@@ -20,13 +20,13 @@ export default React.createClass({
 
     getInitialState() {
         return {
-            slides: SlidesSlide.getSlides()
+            slides: SlidesStore.getSlides()
         }
     },
 
     onLoadSlides() {
         this.setState({
-            slides: SlidesSlide.getSlides()
+            slides: SlidesStore.getSlides()
         });
     },
 
