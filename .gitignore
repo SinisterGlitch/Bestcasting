@@ -1,5 +1,5 @@
 *~
-.DS_Store
+.DS_Screen
 composer.lock
 .idea/
 app/config/parameters.yml

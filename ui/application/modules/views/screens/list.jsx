@@ -5,28 +5,28 @@ import { Link } from 'react-router';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import BranchesStore from 'modules/stores/branches';
-import BranchesActions from 'modules/actions/branches';
+import ScreensScreen from 'modules/screens/screens';
+import ScreensActions from 'modules/actions/screens';
 
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(BranchesStore, 'onLoadBranches')
+        Reflux.listenTo(ScreensScreen, 'onLoadScreens')
     ],
 
     componentDidMount() {
-        BranchesActions.loadBranches()
+        ScreensActions.loadScreens()
     },
 
     getInitialState() {
         return {
-            branches: BranchesStore.getBranches()
+            screens: ScreensScreen.getScreens()
         }
     },
 
-    onLoadBranches() {
+    onLoadScreens() {
         this.setState({
-            branches: BranchesStore.getBranches()
+            screens: ScreensScreen.getScreens()
         });
     },
 
@@ -42,23 +42,23 @@ export default React.createClass({
                     </tr>
                     </thead>
                     <tbody>
-                        {_.map(this.state.branches, this.renderRow)}
+                        {_.map(this.state.screens, this.renderRow)}
                     </tbody>
                 </table>
             </div>
         )
     },
 
-    renderRow(branch) {
-        if (_.isUndefined(branch)) {
+    renderRow(screen) {
+        if (_.isUndefined(screen)) {
             return;
         }
 
         return (
-            <tr key={branch.id}>
-                <td>{branch.name}</td>
-                <td><Link key="detail" to={'/branches/detail/'+branch.id}>detail</Link></td>
-                <td><Link key="edit" to={'/branches/edit/'+branch.id}>edit</Link></td>
+            <tr key={screen.id}>
+                <td>{screen.name}</td>
+                <td><Link key="detail" to={'/screens/detail/'+screen.id}>detail</Link></td>
+                <td><Link key="edit" to={'/screens/edit/'+screen.id}>edit</Link></td>
             </tr>
         );
     }

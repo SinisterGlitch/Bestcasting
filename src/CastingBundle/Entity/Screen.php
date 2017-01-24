@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Table(name="screen")
+ * @ORM\Table(name="store_screen")
  * @ORM\Entity(repositoryClass="CastingBundle\Entity\Repository\ScreenRepository")
  */
 class Screen

@@ -66,8 +66,9 @@ class Slide
 
     /**
      * @Groups({"details"})
-     * @ORM\ManyToOne(targetEntity="Playlist", inversedBy="slides")
+     * @ORM\ManyToMany(targetEntity="Playlist", inversedBy="slides")
      * @ORM\JoinColumn(name="playlist_id", referencedColumnName="id")
+     * @ORM\JoinTable(name="playlist_slide")
      **/
     private $playlist;
 

@@ -2,8 +2,8 @@
 
 namespace ApiBundle\Controller;
 
-use CastingBundle\Entity\Repository\StoreRepository;
-use CastingBundle\Entity\Store;
+use CastingBundle\Entity\Repository\ScreenRepository;
+use CastingBundle\Entity\Screen;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\NamePrefix;
@@ -13,18 +13,18 @@ use FOS\RestBundle\Controller\Annotations\Put;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class StoreController
+ * Class ScreenController
  * @NamePrefix("api_store_")
  * @package ApiBundle\Controller
  */
-class StoreController extends BaseController
+class ScreenController extends BaseController
 {
     /**
      * @Get("{id}")
      * @param integer $id
      * @return array
      */
-    public function getStoreAction($id)
+    public function getScreenAction($id)
     {
         $entity = $this->getRepository()->find($id);
 
@@ -39,7 +39,7 @@ class StoreController extends BaseController
      * @Get("")
      * @return array
      */
-    public function getStoresAction()
+    public function getScreensAction()
     {
         $models = [];
         foreach ($this->getRepository()->findAll() as $entity) {
@@ -54,9 +54,9 @@ class StoreController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function postStoreAction(Request $request)
+    public function postScreenAction(Request $request)
     {
-        $entity = $this->deserialize(new Store(), $request->getContent(), 'details');
+        $entity = $this->deserialize(new Screen(), $request->getContent(), 'details');
 
         $this->getManager()->persist($entity);
         $this->getManager()->flush();
@@ -70,7 +70,7 @@ class StoreController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function putStoreAction($id, Request $request)
+    public function putScreenAction($id, Request $request)
     {
         $entity = $this->getRepository()->find($id);
 
@@ -92,7 +92,7 @@ class StoreController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function patchStoreAction($id, Request $request)
+    public function patchScreenAction($id, Request $request)
     {
         $entity = $this->getRepository()->find($id);
 
@@ -113,7 +113,7 @@ class StoreController extends BaseController
      * @param integer $id
      * @return array
      */
-    public function deleteStoreAction($id)
+    public function deleteScreenAction($id)
     {
         $entity = $this->getRepository()->find($id);
 
@@ -128,10 +128,10 @@ class StoreController extends BaseController
     }
 
     /**
-     * @return StoreRepository
+     * @return ScreenRepository
      */
     private function getRepository()
     {
-        return $this->getManager()->getRepository('CastingBundle:Store');
+        return $this->getManager()->getRepository('CastingBundle:Screen');
     }
 }

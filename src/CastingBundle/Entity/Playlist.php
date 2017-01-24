@@ -53,7 +53,7 @@ class Playlist
     /**
      * @var Slide[]
      * @Groups({"details"})
-     * @ORM\OneToMany(targetEntity="Slide", mappedBy="playlist")
+     * @ORM\ManyToMany(targetEntity="Slide", mappedBy="playlist")
      **/
     private $slides;
 

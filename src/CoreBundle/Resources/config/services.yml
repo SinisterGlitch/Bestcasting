@@ -37,7 +37,7 @@ services:
         class: 'CoreBundle\Service\Mailer\Providers\SmtpProvider'
         parent: 'core.mailer.provider.abstract'
         tags:
-            - { name: 'core.mailer.provider' }
+            - { name: 'core.mailer.provider', alias: 'smtp' }
 
     core.mailer.handler.abstract:
         class: 'CoreBundle\Service\Mailer\Handlers\AbstractHandler'
@@ -45,23 +45,16 @@ services:
         abstract: true
         public: false
 
-    core.mailer.handler.access:
-        class: 'CoreBundle\Service\Mailer\Handlers\AccessHandler'
-        parent: 'core.mailer.handler.abstract'
-        public: false
-        tags:
-            - { name: 'core.mailer.handler' }
-
     core.mailer.handler._access:
         class: 'CoreBundle\Service\Mailer\Handlers\AccessHandler'
         parent: 'core.mailer.handler.abstract'
         public: false
         tags:
-            - { name: 'core.mailer.handler' }
+            - { name: 'core.mailer.handler', alias: 'access' }
 
     core.mailer.handler._activation:
         class: 'CoreBundle\Service\Mailer\Handlers\ActivationHandler'
         parent: 'core.mailer.handler.abstract'
         public: false
         tags:
-            - { name: 'core.mailer.handler' }
+            - { name: 'core.mailer.handler', alias: 'activation'}

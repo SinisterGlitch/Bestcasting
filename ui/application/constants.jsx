@@ -1,7 +1,7 @@
 'use strict';
 
 var Constants = {
-    API_PREFIX: '../app_dev.php/api/'
+    API_PREFIX: 'http://bestcasting.local/app_dev.php/api/'
 };
 
 export default Constants;

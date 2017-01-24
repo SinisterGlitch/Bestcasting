@@ -1,5 +1,5 @@
 api_store_controller:
-    resource: '@ApiBundle/Controller/StoreController.php'
+    resource: '@ApiBundle/Controller/ScreenController.php'
     prefix: stores
     type: rest
 

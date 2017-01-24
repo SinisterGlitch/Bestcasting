@@ -8,9 +8,21 @@ export default React.createClass({
 
     menuItems: [
         {label: 'home', route: '/dashboard'},
-        {label: 'branches', route: [
-            {label: 'browse', route: '/branches'},
-            {label: 'create', route: '/branches/new'}
+        {label: 'stores', route: [
+            {label: 'browse', route: '/stores'},
+            {label: 'create', route: '/stores/new'}
+        ]},
+        {label: 'screens', route: [
+            {label: 'browse', route: '/screens'},
+            {label: 'create', route: '/screens/new'}
+        ]},
+        {label: 'playlists', route: [
+            {label: 'browse', route: '/playlists'},
+            {label: 'create', route: '/playlists/new'}
+        ]},
+        {label: 'slides', route: [
+            {label: 'browse', route: '/slides'},
+            {label: 'create', route: '/slides/new'}
         ]}
     ],
 

@@ -40,7 +40,7 @@ class MailerCompilerPass implements CompilerPassInterface
         $taggedServices = $container->findTaggedServiceIds($tag);
 
         foreach ($taggedServices as $id => $tags) {
-            $definition->addMethodCall($method, [new Reference($id)]);
+            $definition->addMethodCall($method, [current($tags)['alias'], new Reference($id)]);
         }
     }
 }
