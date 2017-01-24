@@ -1,6 +1,6 @@
 <?php
 
-namespace CoreBundle\Controller;
+namespace ApiBundle\Controller;
 
 use CoreBundle\Service\Serializer\SerializerManager;
 use Doctrine\ORM\EntityManager;
@@ -8,7 +8,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 
 /**
  * Class BaseController
- * @package CoreBundle\Controller
+ * @package ApiBundle\Controller
  */
 class BaseController extends FOSRestController
 {

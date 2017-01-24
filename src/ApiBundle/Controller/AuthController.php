@@ -1,8 +1,7 @@
 <?php
 
-namespace UserBundle\Controller;
+namespace ApiBundle\Controller;
 
-use CoreBundle\Controller\BaseController;
 use FOS\RestBundle\Controller\Annotations\NamePrefix;
 use FOS\RestBundle\Controller\Annotations\Post;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,8 +14,8 @@ use UserBundle\Security\UserManager;
 
 /**
  * Class AuthController
- * @package UserBundle\Controller
- * @NamePrefix("user_auth_")
+ * @package ApiBundle\Controller
+ * @NamePrefix("api_auth_")
  */
 class AuthController extends BaseController
 {

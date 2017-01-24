@@ -1,9 +1,0 @@
-user_user_controller:
-    resource: '@UserBundle/Controller/UserController.php'
-    prefix: user
-    type: rest
-
-user_auth_controller:
-    resource: '@UserBundle/Controller/AuthController.php'
-    prefix: auth
-    type: rest

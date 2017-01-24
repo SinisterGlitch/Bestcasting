@@ -1,0 +1,14 @@
+api_store_controller:
+    resource: '@ApiBundle/Controller/StoreController.php'
+    prefix: stores
+    type: rest
+
+api_user_controller:
+    resource: '@ApiBundle/Controller/UserController.php'
+    prefix: user
+    type: rest
+
+api_auth_controller:
+    resource: '@ApiBundle/Controller/AuthController.php'
+    prefix: auth
+    type: rest

@@ -1,31 +1,31 @@
 <?php
 
-namespace CastingBundle\Controller;
+namespace ApiBundle\Controller;
 
-use CastingBundle\Entity\Repository\StoreRepository;
-use CastingBundle\Entity\Store;
-use CoreBundle\Controller\BaseController;
-use FOS\RestBundle\Controller\Annotations\Delete;
-use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\NamePrefix;
 use FOS\RestBundle\Controller\Annotations\Patch;
+use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Put;
 use Symfony\Component\HttpFoundation\Request;
+use UserBundle\Entity\Repository\UserRepository;
+use UserBundle\Entity\User;
+use UserBundle\Security\UserManager;
 
 /**
- * Class StoreController
- * @NamePrefix("casting_store_")
- * @package CastingBundle\Controller
+ * Class UserController
+ * @package ApiBundle\Controller
+ * @NamePrefix("api_user_")
  */
-class StoreController extends BaseController
+class UserController extends BaseController
 {
     /**
      * @Get("{id}")
      * @param integer $id
      * @return array
      */
-    public function getStoreAction($id)
+    public function getUserAction($id)
     {
         $entity = $this->getRepository()->find($id);
 
@@ -40,7 +40,7 @@ class StoreController extends BaseController
      * @Get("")
      * @return array
      */
-    public function getStoresAction()
+    public function getUsersAction()
     {
         $models = [];
         foreach ($this->getRepository()->findAll() as $entity) {
@@ -55,12 +55,10 @@ class StoreController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function postStoreAction(Request $request)
+    public function postUserAction(Request $request)
     {
-        $entity = $this->deserialize(new Store(), $request->getContent(), 'details');
-
-        $this->getManager()->persist($entity);
-        $this->getManager()->flush();
+        $entity = $this->deserialize(new User, $request->getContent(), 'details');
+        $entity = $this->getUserManager()->register($entity);
 
         return $this->serialize($entity, 'details');
     }
@@ -71,15 +69,16 @@ class StoreController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function putStoreAction($id, Request $request)
+    public function putUserAction($id, Request $request)
     {
-        $entity = $this->getRepository()->find($id);
+        $entity = $this->getSerializer()->reference(new User(), $id);
 
         if (!$entity) {
             throw $this->createNotFoundException();
         }
 
         $entity = $this->deserialize($entity, $request->getContent(), 'details', true);
+        $entity = $this->getUserManager()->updatePassword($entity);
 
         $this->getManager()->merge($entity);
         $this->getManager()->flush();
@@ -93,7 +92,7 @@ class StoreController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function patchStoreAction($id, Request $request)
+    public function patchUserAction($id, Request $request)
     {
         $entity = $this->getRepository()->find($id);
 
@@ -101,7 +100,12 @@ class StoreController extends BaseController
             throw $this->createNotFoundException();
         }
 
+        $password = $entity->getPassword();
         $entity = $this->deserialize($entity, $request->getContent(), 'details');
+
+        if ($entity->getPassword() != $password) {
+            $entity = $this->getUserManager()->updatePassword($entity);
+        }
 
         $this->getManager()->persist($entity);
         $this->getManager()->flush();
@@ -111,12 +115,13 @@ class StoreController extends BaseController
 
     /**
      * @Delete("{id}")
+     *
      * @param integer $id
      * @return array
      */
-    public function deleteStoreAction($id)
+    public function deleteUserAction($id)
     {
-        $entity = $this->getRepository()->find($id);
+        $entity = $this->getSerializer()->reference(new User(), $id);
 
         if (!$entity) {
             throw $this->createNotFoundException();
@@ -129,10 +134,18 @@ class StoreController extends BaseController
     }
 
     /**
-     * @return StoreRepository
+     * @return UserRepository
      */
     private function getRepository()
     {
-        return $this->getManager()->getRepository('CastingBundle:Store');
+        return $this->getManager()->getRepository('UserBundle:User');
+    }
+
+    /**
+     * @return UserManager
+     */
+    public function getUserManager()
+    {
+        return $this->get('user.user.manager');
     }
 }
