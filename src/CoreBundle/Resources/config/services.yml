@@ -1,15 +1,15 @@
 services:
 
     # SerializerManager
-    core.serializer_manager:
-        class: ApiBundle\Service\Serializer\SerializerManager
+    core.serializer.manager:
+        class: 'CoreBundle\Service\Serializer\SerializerManager'
         arguments:
             - '@serializer'
             - '@validator'
             - '@doctrine.orm.entity_manager'
 
     jms_serializer.doctrine_object_constructor:
-        class: 'ApiBundle\Service\Serializer\Constructor\PersistedEntityConstructor'
+        class: 'CoreBundle\Service\Serializer\Constructor\PersistedEntityConstructor'
         public: false
         arguments:
             - '@doctrine'

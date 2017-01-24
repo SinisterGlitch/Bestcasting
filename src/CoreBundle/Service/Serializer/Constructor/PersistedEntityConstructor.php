@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiBundle\Service\Serializer\Constructor;
+namespace CoreBundle\Service\Serializer\Constructor;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use JMS\Serializer\Construction\ObjectConstructorInterface;
@@ -12,7 +12,7 @@ use PhpOption\None;
 
 /**
  * Class PersistedEntityConstructor
- * @package ApiBundle\Service\Serializer\Constructor
+ * @package CoreBundle\Service\Serializer\Constructor
  */
 class PersistedEntityConstructor implements ObjectConstructorInterface
 {

@@ -156,7 +156,7 @@ class UserManager
             throw new BadRequestHttpException();
         }
 
-        $this->mailManager->send('access', 'mandrill', ['user' => $user]);
+        $this->mailManager->send('access', ['user' => $user]);
     }
 
     /**

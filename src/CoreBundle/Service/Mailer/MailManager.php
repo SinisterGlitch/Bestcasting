@@ -67,11 +67,11 @@ class MailManager
 
     /**
      * @param string $handlerKey
-     * @param string $providerKey
      * @param array $params
+     * @param string $providerKey
      * @return MailContext
      */
-    public function send($handlerKey, $providerKey = AbstractProvider::PROVIDER_MANDRILL, array $params)
+    public function send($handlerKey, array $params, $providerKey = AbstractProvider::PROVIDER_MANDRILL)
     {
         $provider = $this->getProvider($providerKey);
         $handler = $this->getHandler($handlerKey);

@@ -1,12 +1,12 @@
 services:
-    user.user_provider:
+    user.user.provider:
         class: UserBundle\Security\UserProvider
         arguments: ['@doctrine.orm.entity_manager']
 
-    user.user_authenticator:
+    user.user.authenticator:
         class: UserBundle\Security\UserAuthenticator
 
-    user.user_manager:
+    user.user.manager:
         class: UserBundle\Security\UserManager
         arguments:
             - '@doctrine.orm.entity_manager'

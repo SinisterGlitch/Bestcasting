@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiBundle\Service\Serializer;
+namespace CoreBundle\Service\Serializer;
 
 use Doctrine\ORM\EntityManager;
 use JMS\Serializer\Context;
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class SerializerManager
- * @package ApiBundle\Service\Serializer
+ * @package CoreBundle\Service\Serializer
  */
 class SerializerManager
 {

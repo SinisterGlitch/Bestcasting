@@ -7,8 +7,8 @@ security:
       UserBundle\Entity\User: bcrypt
 
   providers:
-    core.user_provider:
-      id: core.user_provider
+    user.user.provider:
+      id: user.user.provider
 
   firewalls:
     dev:
@@ -18,9 +18,9 @@ security:
     api:
       pattern: ^/api
       stateless: true
-      provider: core.user_provider
+      provider: user.user.provider
       simple_preauth:
-        authenticator: core.user_authenticator
+        authenticator: user.user.authenticator
 
     auth:
       pattern: ^/auth

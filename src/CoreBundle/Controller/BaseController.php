@@ -39,6 +39,6 @@ class BaseController extends FOSRestController
      */
     private function getSerializer()
     {
-        return $this->get('core.serializer_manager');
+        return $this->get('core.serializer.manager');
     }
 }
