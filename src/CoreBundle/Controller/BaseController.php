@@ -2,7 +2,7 @@
 
 namespace CoreBundle\Controller;
 
-use ApiBundle\Service\Serializer\SerializerManager;
+use CoreBundle\Service\Serializer\SerializerManager;
 use FOS\RestBundle\Controller\FOSRestController;
 
 /**

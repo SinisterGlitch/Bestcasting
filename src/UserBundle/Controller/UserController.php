@@ -17,7 +17,7 @@ use UserBundle\Security\UserManager;
 /**
  * Class UserController
  * @package UserBundle\Controller
- * @NamePrefix("user__user_")
+ * @NamePrefix("user_user_")
  */
 class UserController extends BaseController
 {
@@ -26,7 +26,7 @@ class UserController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function accessAction(Request $request)
+    public function postAccessAction(Request $request)
     {
         $email = $request->query->get('email', null);
 
@@ -35,7 +35,7 @@ class UserController extends BaseController
         }
 
         $user = $this->getUserRepository()->findOneBy(['email' => $email]);
-        $this->sendMail('_access', ['user' => $user]);
+        $this->sendMail('access', ['user' => $user]);
     }
 
     /**
@@ -43,7 +43,7 @@ class UserController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function tokenAction(Request $request)
+    public function postTokenAction(Request $request)
     {
         $entity = $this->deserialize(new User, $request->getContent(), 'details');
 
@@ -53,7 +53,7 @@ class UserController extends BaseController
             $entity = $this->getUserManager()->loginByCredentials($entity);
         }
 
-        return $this->response(['token' => $entity->getToken()]);
+        return ['token' => $entity->getToken()];
     }
 
     /**
@@ -67,30 +67,22 @@ class UserController extends BaseController
     }
 
     /**
-     * @return MailManager
-     */
-    private function getMailer()
-    {
-        return $this->get('core.mailer.manager');
-    }
-
-    /**
      * @return UserRepository
      */
     private function getUserRepository()
     {
-        return $this->getUserManager()->getRepository('UserBundle:User');
+        return $this->getUserManager()->getRepository();
     }
 
     /**
      * @Post("logout")
      * @return array
      */
-    public function logoutAction()
+    public function postLogoutAction()
     {
         $this->getUserManager()->logout($this->getUser());
 
-        return $this->response([]);
+        return [];
     }
 
     /**
@@ -98,6 +90,14 @@ class UserController extends BaseController
      */
     private function getUserManager()
     {
-        return $this->get('user.user_manager');
+        return $this->get('user.user.manager');
+    }
+
+    /**
+     * @return MailManager
+     */
+    private function getMailer()
+    {
+        return $this->get('core.mailer.manager');
     }
 }
