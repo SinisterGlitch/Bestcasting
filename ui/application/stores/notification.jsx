@@ -28,7 +28,7 @@ export default Reflux.createStore({
      * @param {string} message
      */
     onShow(status, method, message = null) {
-        if (method == 'GET') {
+        if (method == 'GET' && status >= 200 && status < 300) {
             return;
         }
 

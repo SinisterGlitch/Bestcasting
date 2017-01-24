@@ -6,4 +6,5 @@ composer.lock
 app/config/parameters.yml
 var/
 vendor/
+node_modules
 web/bundles/
