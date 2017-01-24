@@ -23,7 +23,7 @@ export default React.createClass({
     },
 
     onLogin() {
-        this.props.router.push({pathname: '/dashboard'});
+        // this.props.router.push({pathname: '/dashboard'});
     },
 
     render(){

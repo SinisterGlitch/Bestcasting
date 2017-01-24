@@ -9,7 +9,7 @@ export default React.createClass({
 
     hasAccess() {
         if (!AuthStore.getToken() && !this.props.router.location.pathname != '/dashboard/login') {
-            // this.props.router.push({pathname: '/dashboard/login'});
+            this.props.router.push({pathname: '/dashboard/login'});
         }
     },
 

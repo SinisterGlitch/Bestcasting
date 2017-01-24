@@ -52,8 +52,6 @@ export default React.createClass({
     },
 
     render() {
-        if (AuthStore.getToken() == null) return null;
-
         return (
             <div id="header" className="navbar navbar-default navbar-static-top">
                 <div className="navbar-header">
