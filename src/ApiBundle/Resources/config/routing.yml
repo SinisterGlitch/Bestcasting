@@ -1,6 +1,21 @@
 api_store_controller:
-    resource: '@ApiBundle/Controller/ScreenController.php'
+    resource: '@ApiBundle/Controller/StoreController.php'
     prefix: stores
+    type: rest
+
+api_screen_controller:
+    resource: '@ApiBundle/Controller/ScreenController.php'
+    prefix: screens
+    type: rest
+
+api_playlist_controller:
+    resource: '@ApiBundle/Controller/PlaylistController.php'
+    prefix: playlists
+    type: rest
+
+api_slide_controller:
+    resource: '@ApiBundle/Controller/SlideController.php'
+    prefix: slides
     type: rest
 
 api_user_controller:

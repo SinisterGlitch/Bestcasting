@@ -13,10 +13,21 @@ export default Reflux.createStore({
     status: null,
 
     /**
-     * @param {string} status
+     * @import {string}
      */
-    onShow(status) {
+    method: null,
+
+    /**
+     * @param {int} status
+     * @param {string} method
+     */
+    onShow(status, method) {
+        if (method == 'GET') {
+            return;
+        }
+
         this.status = status;
+        this.method = method;
         setTimeout(NotificationActions.hide, 3000);
         this.trigger();
     },

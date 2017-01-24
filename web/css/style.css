@@ -2,3 +2,8 @@
     margin-top:40%;
     width:50%;
 }
+.alert {
+    position:relative;
+    padding:5px;
+    margin:5px;
+}

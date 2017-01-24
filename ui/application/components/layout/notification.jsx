@@ -2,17 +2,17 @@
 
 import React from 'react';
 import Reflux from 'reflux';
-import NotificationScreen from 'stores/notification';
+import NotificationStore from 'stores/notification';
 import NotificationActions from 'actions/notification';
 
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(NotificationScreen, 'forceUpdate')
+        Reflux.listenTo(NotificationStore, 'forceUpdate')
     ],
 
     getMessage() {
-        let status = NotificationScreen.getStatus();
+        let status = NotificationStore.getStatus();
 
         if (status >= 400 && status < 500) {
             return 'error';
@@ -22,7 +22,7 @@ export default React.createClass({
     },
 
     getClassName() {
-        let status = NotificationScreen.getStatus();
+        let status = NotificationStore.getStatus();
 
         if (status >= 400 && status < 500) {
             return 'alert alert-danger';
@@ -34,7 +34,7 @@ export default React.createClass({
     render() {
         return (
             <div onClick={NotificationActions.hide}
-                 style={{cursor:'pointer', display: !(NotificationScreen.getStatus()) ? 'none' : 'block'}}
+                 style={{cursor:'pointer', display: !(NotificationStore.getStatus()) ? 'none' : 'block'}}
                  className={this.getClassName()}>
                     {this.getMessage()}
             </div>

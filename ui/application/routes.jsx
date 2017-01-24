@@ -1,10 +1,9 @@
 'use strict';
 
 import React from 'react';
-import {Router, Route} from 'react-router';
+import {Router, Route, browserHistory} from 'react-router';
 import App from 'components/layout/app';
 
-import history from 'history';
 
 // dashboard
 import notFoundView from 'modules/views/dashboard/not-found';
@@ -37,7 +36,7 @@ import slidesEditView from 'modules/views/slides/edit';
 import slidesNewView from 'modules/views/slides/new';
 
 export default (
-    <Router history={history}>
+    <Router history={browserHistory}>
         <Route component={App} path="/">
             <Route component={dashboardIndexView} path="dashboard" />
             <Route component={dashboardLoginView} path="dashboard/login" />
