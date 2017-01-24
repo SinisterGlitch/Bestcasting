@@ -19,14 +19,6 @@ abstract class AbstractProvider
     protected $options = [];
 
     /**
-     * @param array $options
-     */
-    public function __construct(array $options)
-    {
-        $this->options = $options;
-    }
-
-    /**
      * @param MailContext $context
      * @return mixed
      */

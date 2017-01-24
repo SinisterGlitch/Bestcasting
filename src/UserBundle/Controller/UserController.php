@@ -26,7 +26,7 @@ class UserController extends BaseController
      * @param integer $id
      * @return array
      */
-    public function getSingleAction($id)
+    public function getUserAction($id)
     {
         $entity = $this->getRepository()->find($id);
 
@@ -41,7 +41,7 @@ class UserController extends BaseController
      * @Get("")
      * @return array
      */
-    public function getAllAction()
+    public function getUsersAction()
     {
         $models = [];
         foreach ($this->getRepository()->findAll() as $entity) {
@@ -56,7 +56,7 @@ class UserController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function postAction(Request $request)
+    public function postUserAction(Request $request)
     {
         $entity = $this->deserialize(new User, $request->getContent(), 'details');
         $entity = $this->getUserManager()->register($entity);
@@ -70,7 +70,7 @@ class UserController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function putAction($id, Request $request)
+    public function putUserAction($id, Request $request)
     {
         $entity = $this->getSerializer()->reference(new User(), $id);
 
@@ -93,7 +93,7 @@ class UserController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function patchAction($id, Request $request)
+    public function patchUserAction($id, Request $request)
     {
         $entity = $this->getRepository()->find($id);
 
@@ -120,7 +120,7 @@ class UserController extends BaseController
      * @param integer $id
      * @return array
      */
-    public function deleteAction($id)
+    public function deleteUserAction($id)
     {
         $entity = $this->getSerializer()->reference(new User(), $id);
 

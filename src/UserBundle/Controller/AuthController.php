@@ -21,7 +21,7 @@ use UserBundle\Security\UserManager;
 class AuthController extends BaseController
 {
     /**
-     * @Post("token")
+     * @Post("login")
      * @param Request $request
      * @return array
      */
@@ -36,6 +36,19 @@ class AuthController extends BaseController
         }
 
         return ['token' => $entity->getToken()];
+    }
+
+    /**
+     * @Post("register")
+     * @param Request $request
+     * @return array
+     */
+    public function postRegisterAction(Request $request)
+    {
+        $entity = $this->deserialize(new User, $request->getContent(), 'details');
+        $entity = $this->getUserManager()->register($entity);
+
+        return $this->serialize($entity, 'details');
     }
 
     /**

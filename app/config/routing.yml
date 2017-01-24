@@ -4,4 +4,4 @@ core:
 
 user:
     resource: '@UserBundle/Resources/config/routing.yml'
-    prefix:   /user
+    prefix:   /api
