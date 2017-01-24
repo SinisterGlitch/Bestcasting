@@ -1,0 +1,4 @@
+casting_store_controller:
+    resource: '@CastingBundle/Controller/StoreController.php'
+    prefix: stores
+    type: rest

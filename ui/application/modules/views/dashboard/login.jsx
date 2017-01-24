@@ -29,7 +29,7 @@ export default React.createClass({
 
     render(){
         return (
-            <div className="content">
+            <div className="content login-form">
                 <TextInput label="Username" valueLink={this.linkState('user.username')} />
                 <br/>
                 <TextInput label="Password" hideInput={true} valueLink={this.linkState('user.password')} />

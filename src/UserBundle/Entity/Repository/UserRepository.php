@@ -3,7 +3,7 @@
 namespace UserBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use UserBundle\Entity\User;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class UserRepository
@@ -13,7 +13,7 @@ class UserRepository extends EntityRepository
 {
     /**
      * @param string $username
-     * @return User
+     * @return UserInterface
      */
     public function findUserByUsername($username)
     {
@@ -22,7 +22,7 @@ class UserRepository extends EntityRepository
 
     /**
      * @param string $token
-     * @return User
+     * @return UserInterface
      */
     public function findUserByToken($token)
     {
@@ -31,7 +31,7 @@ class UserRepository extends EntityRepository
 
     /**
      * @param string $email
-     * @return User
+     * @return UserInterface
      */
     public function findUserByEmail($email)
     {
@@ -40,7 +40,7 @@ class UserRepository extends EntityRepository
 
     /**
      * @param string $code
-     * @return User
+     * @return UserInterface
      */
     public function findUserByCode($code)
     {
@@ -49,7 +49,7 @@ class UserRepository extends EntityRepository
 
     /**
      * @param array $params
-     * @return null|User
+     * @return UserInterface
      */
     public function findOneByParams(array $params)
     {

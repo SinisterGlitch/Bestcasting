@@ -1,5 +1,5 @@
-core:
-    resource: '@CoreBundle/Resources/config/routing.yml'
+casting:
+    resource: '@CastingBundle/Resources/config/routing.yml'
     prefix:   /api
 
 user:

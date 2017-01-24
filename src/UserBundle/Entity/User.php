@@ -2,6 +2,11 @@
 
 namespace UserBundle\Entity;
 
+use CastingBundle\Entity\Playlist;
+use CastingBundle\Entity\Screen;
+use CastingBundle\Entity\Slide;
+use CastingBundle\Entity\Store;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Groups;
@@ -102,6 +107,12 @@ class User implements UserInterface
     protected $email;
 
     /**
+     * @var Store[]
+     * @ORM\OneToMany(targetEntity="CastingBundle\Entity\Store", mappedBy="user")
+     **/
+    private $stores;
+
+    /**
      * @return integer
      */
     public function getId()
@@ -110,22 +121,11 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * User constructor.
      */
-    public function getCode()
+    public function __construct()
     {
-        return $this->code;
-    }
-
-    /**
-     * @param string $code
-     * @return $this
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-
-        return $this;
+        $this->stores = new ArrayCollection();
     }
 
     /**
@@ -313,5 +313,80 @@ class User implements UserInterface
         $this->email = $email;
 
         return $this;
+    }
+
+    /**
+     * @return Store[]
+     */
+    public function getStores()
+    {
+        return $this->stores;
+    }
+
+    /**
+     * @param Store $store
+     * @return $this
+     */
+    public function addStore(Store $store)
+    {
+        $this->stores->add($store);
+
+        return $this;
+    }
+
+    /**
+     * @param Store $store
+     * @return $this
+     */
+    public function removeStore(Store $store)
+    {
+        $this->stores->remove($store);
+
+        return $this;
+    }
+
+    /**
+     * @return Slide[]
+     */
+    public function getSlides()
+    {
+        $result = [];
+        foreach ($this->getPlaylists() as $playlist) {
+            foreach ($playlist->getSlides() as $slide) {
+                $result[] = $slide;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return Screen[]
+     */
+    public function getScreens()
+    {
+        $result = [];
+        foreach ($this->getStores() as $store) {
+            foreach ($store->getScreens() as $screen) {
+                $result[] = $screen;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return Playlist[]
+     */
+    public function getPlaylists()
+    {
+        $result = [];
+        foreach ($this->getScreens() as $screen) {
+            foreach ($screen->getPlaylists() as $playlist) {
+                $result[] = $playlist;
+            }
+        }
+
+        return $result;
     }
 }

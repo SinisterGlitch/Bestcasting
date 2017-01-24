@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router'
+import AuthStore from 'stores/auth';
 
 export default React.createClass({
 
@@ -15,7 +16,9 @@ export default React.createClass({
 
     loginItems: [
         {label: 'User', route: [
-            {label: 'login', route: '/dashboard/login'},
+            AuthStore.getToken()
+                ? {label: 'logout', route: '/dashboard/logout'}
+                : {label: 'login', route: '/dashboard/login'},
             {label: 'register', route: '/dashboard/register'}
         ]}
     ],
@@ -36,6 +39,8 @@ export default React.createClass({
     },
 
     render() {
+        if (AuthStore.getToken() == null) return null;
+
         return (
             <div id="header" className="navbar navbar-default navbar-static-top">
                 <div className="navbar-header">
