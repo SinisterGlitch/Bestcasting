@@ -2,6 +2,7 @@
 .DS_Screen
 composer.lock
 .idea/
+
 app/config/parameters.yml
 var/
 vendor/
