@@ -5,7 +5,6 @@ import Reflux from 'reflux';
 
 import FormMixin from 'mixins/form-mixin';
 import TextInput from 'components/form/text-input';
-import Checkbox from 'components/form/checkbox-input';
 import Submit from 'components/form/submit-button';
 
 import ScreensStore from 'modules/stores/screens';

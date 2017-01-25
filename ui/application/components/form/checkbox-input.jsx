@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import _ from 'lodash';
 
 export default React.createClass({
 
@@ -8,7 +9,7 @@ export default React.createClass({
         label: React.PropTypes.string,
         checkedLink: React.PropTypes.shape({
             value: React.PropTypes.bool,
-            requestChange: React.PropTypes.func.isRequired
+            onChange: React.PropTypes.func.isRequired
         }).isRequired
     },
 
@@ -24,8 +25,8 @@ export default React.createClass({
                 <span className="input-group-addon">{this.props.label}</span>
                 <div className="form-control">
                     <input
-                        checkedLink={this.props.checkedLink}
                         defaultValue={this.props.checkedLink.value}
+                        onChange={this.props.checkedLink.onChange}
                         type="checkbox"
                         />
                 </div>

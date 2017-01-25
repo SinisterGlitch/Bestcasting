@@ -5,11 +5,11 @@ import Reflux from 'reflux';
 import Request from 'services/request';
 
 let SlidesActions = Reflux.createActions({
-    createSlide:   {children: ['completed','failed']},
+    createSlide: {children: ['completed','failed']},
     updateSlide: {children: ['completed','failed']},
     deleteSlide: {children: ['completed','failed']},
-    loadSlides:   {children: ['completed','failed']},
-    loadSlide:    {children: ['completed','failed']}
+    loadSlides:  {children: ['completed','failed']},
+    loadSlide:   {children: ['completed','failed']}
 });
 
 SlidesActions.loadSlides.listen(() => Request.get('slides/', SlidesActions.loadSlides));

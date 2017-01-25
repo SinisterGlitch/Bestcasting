@@ -5,11 +5,11 @@ import Reflux from 'reflux';
 import Request from 'services/request';
 
 let PlaylistsActions = Reflux.createActions({
-    createPlaylist:   {children: ['completed','failed']},
+    createPlaylist: {children: ['completed','failed']},
     updatePlaylist: {children: ['completed','failed']},
     deletePlaylist: {children: ['completed','failed']},
-    loadPlaylists:   {children: ['completed','failed']},
-    loadPlaylist:    {children: ['completed','failed']}
+    loadPlaylists:  {children: ['completed','failed']},
+    loadPlaylist:   {children: ['completed','failed']}
 });
 
 PlaylistsActions.loadPlaylists.listen(() => Request.get('playlists/', PlaylistsActions.loadPlaylists));

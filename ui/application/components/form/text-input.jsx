@@ -4,11 +4,15 @@ import React from 'react';
 
 export default React.createClass({
 
+    shouldComponentUpdate(nextProps) {
+        return nextProps.valueLink.value != undefined;
+    },
+
     propTypes: {
         label: React.PropTypes.string,
         valueLink: React.PropTypes.shape({
             value: React.PropTypes.string,
-            requestChange: React.PropTypes.func.isRequired
+            onChange: React.PropTypes.func.isRequired
         }).isRequired
     },
 
@@ -24,11 +28,11 @@ export default React.createClass({
             <div className="input-group">
                 <span className="input-group-addon">{this.props.label}</span>
                 <input
-                       className="form-control"
-                       valueLink={this.props.valueLink}
-                       defaultValue={this.props.valueLink.value}
-                       type={this.props.hideInput ? 'password' : 'text'}
-                    />
+                   className="form-control"
+                   value={this.props.valueLink.value}
+                   onChange={this.props.valueLink.onChange}
+                   type={this.props.hideInput ? 'password' : 'text'}
+                />
             </div>
         );
     }

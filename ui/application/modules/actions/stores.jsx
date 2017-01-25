@@ -5,11 +5,11 @@ import Reflux from 'reflux';
 import Request from 'services/request';
 
 let StoresActions = Reflux.createActions({
-    createStore:   {children: ['completed','failed']},
+    createStore: {children: ['completed','failed']},
     updateStore: {children: ['completed','failed']},
     deleteStore: {children: ['completed','failed']},
-    loadStores:   {children: ['completed','failed']},
-    loadStore:    {children: ['completed','failed']}
+    loadStores:  {children: ['completed','failed']},
+    loadStore:   {children: ['completed','failed']}
 });
 
 StoresActions.loadStores.listen(() => Request.get('stores/', StoresActions.loadStores));

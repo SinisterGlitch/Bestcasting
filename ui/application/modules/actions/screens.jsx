@@ -5,11 +5,11 @@ import Reflux from 'reflux';
 import Request from 'services/request';
 
 let ScreensActions = Reflux.createActions({
-    createScreen:   {children: ['completed','failed']},
+    createScreen: {children: ['completed','failed']},
     updateScreen: {children: ['completed','failed']},
     deleteScreen: {children: ['completed','failed']},
-    loadScreens:   {children: ['completed','failed']},
-    loadScreen:    {children: ['completed','failed']}
+    loadScreens:  {children: ['completed','failed']},
+    loadScreen:   {children: ['completed','failed']}
 });
 
 ScreensActions.loadScreens.listen(() => Request.get('screens/', ScreensActions.loadScreens));

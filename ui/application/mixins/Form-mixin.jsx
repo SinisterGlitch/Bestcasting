@@ -6,8 +6,8 @@ export default {
 
     linkState(propertyPath) {
         return {
-            value: _.get(this.state, propertyPath),
-            requestChange: value => this.setState(_.set(_.clone(this.state), propertyPath, value))
+            value: _.get(this.state, propertyPath, ''),
+            onChange: value => this.setState(_.set(_.clone(this.state), propertyPath, value))
         };
     }
 };
