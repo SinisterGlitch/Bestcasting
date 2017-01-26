@@ -3,13 +3,15 @@
 import React from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 import App from 'components/layout/app';
+import AuthStore from 'stores/auth';
 
+// Auth
+import loginView from 'modules/views/dashboard/login';
+import registerView from 'modules/views/dashboard/register';
 
 // dashboard
 import notFoundView from 'modules/views/dashboard/not-found';
 import dashboardIndexView from 'modules/views/dashboard/index';
-import dashboardLoginView from 'modules/views/dashboard/login';
-import dashboardRegisterView from 'modules/views/dashboard/register';
 
 // stores
 import storesListView from 'modules/views/stores/list';
@@ -35,12 +37,19 @@ import slidesDetailView from 'modules/views/slides/detail';
 import slidesEditView from 'modules/views/slides/edit';
 import slidesNewView from 'modules/views/slides/new';
 
+let authenticator = () => {
+    if (AuthStore.getToken() == null) {
+        browserHistory.push( '/users/12')
+    }
+};
+
 export default (
     <Router history={browserHistory}>
-        <Route component={App} path="/">
+        <Route component={loginView} path="login" />
+        <Route component={registerView} path="register" />
+
+        <Route component={App} path="/" onEnter={authenticator()}>
             <Route component={dashboardIndexView} path="dashboard" />
-            <Route component={dashboardLoginView} path="dashboard/login" />
-            <Route component={dashboardRegisterView} path="dashboard/register" />
 
             <Route component={storesListView} path="stores" />
             <Route component={storesDetailView} path="stores/detail/:id" />
