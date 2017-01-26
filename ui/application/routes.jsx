@@ -3,7 +3,7 @@
 import React from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 import App from 'components/layout/app';
-import AuthStore from 'stores/auth';
+// import AuthStore from 'stores/auth';
 
 // Auth
 import loginView from 'modules/views/dashboard/login';
@@ -37,18 +37,18 @@ import slidesDetailView from 'modules/views/slides/detail';
 import slidesEditView from 'modules/views/slides/edit';
 import slidesNewView from 'modules/views/slides/new';
 
-let authenticator = () => {
-    if (AuthStore.getToken() == null) {
-        browserHistory.push( '/users/12')
-    }
-};
+// let authenticator = () => {
+//     if (AuthStore.getToken() == null) {
+//         browserHistory.push( '/users/12')
+//     }
+// };
 
 export default (
     <Router history={browserHistory}>
         <Route component={loginView} path="login" />
         <Route component={registerView} path="register" />
 
-        <Route component={App} path="/" onEnter={authenticator()}>
+        <Route component={App} path="/">
             <Route component={dashboardIndexView} path="dashboard" />
 
             <Route component={storesListView} path="stores" />

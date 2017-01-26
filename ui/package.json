@@ -1,25 +1,32 @@
 {
   "name": "BestCasting",
-  "version": "0.3.5",
+  "version": "0.3.8",
   "description": "BestCasting narrowcasting platform",
+  "author": "Germain Riahi",
+  "license": "ISC",
   "private": true,
   "main": "main.js",
   "scripts": {
     "dev": "webpack --progress --colors --watch --debug --devtool eval --display-error",
     "build": "webpack --progress --colors --optimize-minimize"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "babel-loader": "5.3.*",
+    "babel-plugin-import": "^1.1.0",
+    "babel-plugin-transform-runtime": "^6.22.0",
     "babel-runtime": "^5.8.29",
     "history": "^4.5.1",
     "lodash": "^4.17.4",
     "react": "^15.4.2",
     "react-addons-linked-state-mixin": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
     "react-router": "^3.0.2",
+    "react-router-bootstrap": "^0.23.1",
+    "react-tap-event-plugin": "^2.0.1",
     "reflux": "^6.0.0",
+    "css-loader": "^0.26.1",
+    "style-loader": "^0.13.1",
     "superagent": "^3.3.2",
     "webpack": "^1.12.2"
   }

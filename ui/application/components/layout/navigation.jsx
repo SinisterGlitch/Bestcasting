@@ -1,8 +1,10 @@
 'use strict';
 
 import React from 'react';
-import { Link } from 'react-router'
 import AuthStore from 'stores/auth';
+import {Navbar, Nav, MenuItem, NavDropdown, NavItem} from 'react-bootstrap';
+
+import { LinkContainer } from 'react-router-bootstrap'
 
 export default React.createClass({
 
@@ -38,39 +40,38 @@ export default React.createClass({
 
     renderItem(item) {
         if (typeof item.route != 'object') {
-            return <li key={item.route}><Link activeClassName="active" to={item.route}>{item.label}</Link></li>
+            return (
+                <LinkContainer key={item.label} to={{ pathname: item.route}}>
+                    <MenuItem activeHref="active">{item.label}</MenuItem>
+                </LinkContainer>
+            );
         }
 
         return (
-            <li key={item.label} className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown">{item.label}<b className="caret"></b></a>
-                <ul className="dropdown-menu">
-                    {item.route.map((item) => this.renderItem(item))}
-                </ul>
-            </li>
+            <NavDropdown eventKey={3} key={item.label} title={item.label} id="basic-nav-dropdown">
+                {item.route.map((item) => this.renderItem(item))}
+            </NavDropdown>
         );
     },
 
     render() {
         return (
-            <div id="header" className="navbar navbar-default navbar-static-top">
-                <div className="navbar-header">
-                    <button className="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                        <i className="icon-reorder"></i>
-                    </button>
-                    <a className="navbar-brand" href="#">
-                        BestCasting
-                    </a>
-                </div>
-                <nav className="collapse navbar-collapse">
-                    <ul key="navbar-left" className="nav navbar-nav">
+            <Navbar collapseOnSelect>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                       Bestcasting
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav>
                         {this.menuItems.map((item) => this.renderItem(item))}
-                    </ul>
-                    <ul key="navbar-right" className="nav navbar-nav pull-right">
+                    </Nav>
+                    <Nav pullRight>
                         {this.loginItems.map((item) => this.renderItem(item))}
-                    </ul>
-                </nav>
-            </div>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         );
     }
 });
