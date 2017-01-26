@@ -2,7 +2,7 @@
 
 import React from 'react';
 import AuthStore from 'stores/auth';
-import {Navbar, Nav, MenuItem, NavDropdown, NavItem} from 'react-bootstrap';
+import {Navbar, Nav, MenuItem, NavDropdown} from 'react-bootstrap';
 
 import { LinkContainer } from 'react-router-bootstrap'
 
@@ -31,9 +31,9 @@ export default React.createClass({
     loginItems: [
         {label: 'User', route: [
             AuthStore.getToken()
-                ? {label: 'logout', route: '/dashboard/logout'}
-                : {label: 'login', route: '/dashboard/login'},
-                  {label: 'register', route: '/dashboard/register'}
+                ? {label: 'logout', route: '/logout'}
+                : {label: 'login', route: '/login'},
+                  {label: 'register', route: '/register'}
         ]}
     ],
 

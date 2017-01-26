@@ -3,6 +3,7 @@
 import React from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 import App from 'components/layout/app';
+import Base from 'components/layout/base';
 // import AuthStore from 'stores/auth';
 
 // Auth
@@ -45,31 +46,33 @@ import slidesNewView from 'modules/views/slides/new';
 
 export default (
     <Router history={browserHistory}>
-        <Route component={loginView} path="login" />
-        <Route component={registerView} path="register" />
+        <Route component={Base} path="/">
+            <Route component={loginView} path="login" />
+            <Route component={registerView} path="register" />
+        </Route>
 
-        <Route component={App} path="/">
-            <Route component={dashboardIndexView} path="dashboard" />
+        <Route component={App} path="/dashboard">
+            <Route component={dashboardIndexView} path="/dashboard" />
 
-            <Route component={storesListView} path="stores" />
-            <Route component={storesDetailView} path="stores/detail/:id" />
-            <Route component={storesEditView} path="stores/edit/:id" />
-            <Route component={storesNewView} path="stores/new" />
+            <Route component={storesListView} path="/stores" />
+            <Route component={storesDetailView} path="/stores/detail/:id" />
+            <Route component={storesEditView} path="/stores/edit/:id" />
+            <Route component={storesNewView} path="/stores/new" />
 
-            <Route component={screensListView} path="screens" />
-            <Route component={screensDetailView} path="screens/detail/:id" />
-            <Route component={screensEditView} path="screens/edit/:id" />
-            <Route component={screensNewView} path="screens/new" />
+            <Route component={screensListView} path="/screens" />
+            <Route component={screensDetailView} path="/screens/detail/:id" />
+            <Route component={screensEditView} path="/screens/edit/:id" />
+            <Route component={screensNewView} path="/screens/new" />
 
-            <Route component={playlistsListView} path="playlists" />
-            <Route component={playlistsDetailView} path="playlists/detail/:id" />
-            <Route component={playlistsEditView} path="playlists/edit/:id" />
-            <Route component={playlistsNewView} path="playlists/new" />
+            <Route component={playlistsListView} path="/playlists" />
+            <Route component={playlistsDetailView} path="/playlists/detail/:id" />
+            <Route component={playlistsEditView} path="/playlists/edit/:id" />
+            <Route component={playlistsNewView} path="/playlists/new" />
 
-            <Route component={slidesListView} path="slides" />
-            <Route component={slidesDetailView} path="slides/detail/:id" />
-            <Route component={slidesEditView} path="slides/edit/:id" />
-            <Route component={slidesNewView} path="slides/new" />
+            <Route component={slidesListView} path="/slides" />
+            <Route component={slidesDetailView} path="/slides/detail/:id" />
+            <Route component={slidesEditView} path="/slides/edit/:id" />
+            <Route component={slidesNewView} path="/slides/new" />
 
             <Route path="*" component={notFoundView}/>
         </Route>
