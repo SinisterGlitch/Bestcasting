@@ -29,5 +29,8 @@
     "style-loader": "^0.13.1",
     "superagent": "^3.3.2",
     "webpack": "^1.12.2"
+  },
+  "devDependencies": {
+    "webpack-bundle-analyzer": "^2.2.1"
   }
 }
