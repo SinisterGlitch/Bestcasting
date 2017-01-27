@@ -4,6 +4,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import NotificationStore from 'stores/notification';
 import NotificationActions from 'actions/notification';
+import {ListGroup, ListGroupItem} from 'react-bootstrap';
 
 export default React.createClass({
 
@@ -32,19 +33,17 @@ export default React.createClass({
         let status = NotificationStore.getStatus();
 
         if (status >= 400 && status < 500) {
-            return 'alert alert-danger';
+            return 'danger';
         } else if (status >= 200 && status < 300) {
-            return 'alert alert-success';
+            return 'success';
         }
     },
 
     render() {
         return (
-            <div onClick={NotificationActions.hide}
-                 style={{cursor:'pointer', display: !(NotificationStore.getStatus()) ? 'none' : 'block'}}
-                 className={this.getClassName()}>
-                    {this.getMessage()}
-            </div>
+            <ListGroup onClick={NotificationActions.hide} style={{cursor:'pointer', display: !(NotificationStore.getStatus()) ? 'none' : 'block'}}>
+                <ListGroupItem bsStyle={this.getClassName()}>{this.getMessage()}</ListGroupItem>
+            </ListGroup>
         );
     }
 });

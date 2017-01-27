@@ -2,9 +2,6 @@
 
 import React from 'react';
 import Reflux from 'reflux';
-import _ from 'lodash';
-
-import update from 'react-addons-update';
 
 import FormMixin from 'mixins/form-mixin'
 import AuthActions from 'actions/auth';
