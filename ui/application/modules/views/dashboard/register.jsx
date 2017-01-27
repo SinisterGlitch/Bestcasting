@@ -3,9 +3,8 @@
 import React from 'react';
 import Reflux from 'reflux';
 
-import FormMixin from 'mixins/form-mixin'
+import StateMixin from 'mixins/state-mixin'
 import AuthActions from 'actions/auth';
-import UserStore from 'stores/auth';
 
 import { LinkContainer } from 'react-router-bootstrap';
 import {Form, FormGroup, Col, Button, FormControl, PageHeader} from 'react-bootstrap';
@@ -13,8 +12,10 @@ import {Form, FormGroup, Col, Button, FormControl, PageHeader} from 'react-boots
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(AuthActions.postUser.completed, 'onRegister'),
-        FormMixin
+        Reflux.listenTo(AuthActions.postUser, 'onSubmit'),
+        Reflux.listenTo(AuthActions.postUser.completed, 'onRegisterCompleted'),
+        Reflux.listenTo(AuthActions.postUser.failed, 'onRegisterFailed'),
+        StateMixin
     ],
 
     getInitialState() {
@@ -25,16 +26,16 @@ export default React.createClass({
 
     onLoadUser() {
         this.setState({
-            user: UserStore.getUser()
+            user: {},
+            loading: false
         });
     },
 
-    onLoginCompleted() {
+    onRegisterCompleted() {
         this.props.router.push({pathname: '/login'});
-
     },
 
-    onLoginFailed() {
+    onRegisterFailed() {
         this.updateProperty('loading', false);
     },
 

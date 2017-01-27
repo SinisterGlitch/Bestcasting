@@ -3,7 +3,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 
-import FormMixin from 'mixins/form-mixin'
+import StateMixin from 'mixins/state-mixin'
 import AuthActions from 'actions/auth';
 
 import { LinkContainer } from 'react-router-bootstrap'
@@ -15,7 +15,7 @@ export default React.createClass({
         Reflux.listenTo(AuthActions.loadUser, 'onSubmit'),
         Reflux.listenTo(AuthActions.loadUser.completed, 'onLoginCompleted'),
         Reflux.listenTo(AuthActions.loadUser.failed, 'onLoginFailed'),
-        FormMixin
+        StateMixin
     ],
 
     getInitialState() {
@@ -27,7 +27,6 @@ export default React.createClass({
 
     onLoginCompleted() {
         this.props.router.push({pathname: '/dashboard'});
-
     },
 
     onLoginFailed() {

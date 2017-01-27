@@ -3,7 +3,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 
-import FormMixin from 'mixins/form-mixin';
+import StateMixin from 'mixins/state-mixin';
 import TextInput from 'components/form/text-input';
 import Checkbox from 'components/form/checkbox-input';
 import Submit from 'components/form/submit-button';
@@ -14,7 +14,7 @@ import StoresActions from 'modules/actions/stores';
 export default React.createClass({
 
     mixins: [
-        FormMixin,
+        StateMixin,
         Reflux.listenTo(StoresStore, 'onLoadStore')
     ],
 

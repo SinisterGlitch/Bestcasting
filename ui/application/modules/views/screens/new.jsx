@@ -3,7 +3,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 
-import FormMixin from 'mixins/form-mixin';
+import StateMixin from 'mixins/state-mixin';
 import Checkbox from 'components/form/checkbox-input';
 import TextInput from 'components/form/text-input';
 import Submit from 'components/form/submit-button';
@@ -15,7 +15,7 @@ export default React.createClass({
 
     mixins: [
         Reflux.listenTo(ScreensActions.createScreen.completed, 'onSave'),
-        FormMixin
+        StateMixin
     ],
 
     getInitialState() {

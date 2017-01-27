@@ -3,7 +3,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 
-import FormMixin from 'mixins/form-mixin';
+import StateMixin from 'mixins/state-mixin';
 import TextInput from 'components/form/text-input';
 import Submit from 'components/form/submit-button';
 
@@ -13,7 +13,7 @@ import SlidesActions from 'modules/actions/slides';
 export default React.createClass({
 
     mixins: [
-        FormMixin,
+        StateMixin,
         Reflux.listenTo(SlidesStore, 'onLoadSlide')
     ],
 
