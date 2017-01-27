@@ -2,6 +2,9 @@
 
 import React from 'react';
 import Reflux from 'reflux';
+import _ from 'lodash';
+
+import update from 'react-addons-update';
 
 import FormMixin from 'mixins/form-mixin'
 import AuthActions from 'actions/auth';
@@ -12,18 +15,30 @@ import {Form, FormGroup, Col, Checkbox, Button, FormControl, PageHeader} from 'r
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(AuthActions.loadUser, 'onLogin'),
+        Reflux.listenTo(AuthActions.loadUser, 'onSubmit'),
+        Reflux.listenTo(AuthActions.loadUser.completed, 'onLoginCompleted'),
+        Reflux.listenTo(AuthActions.loadUser.failed, 'onLoginFailed'),
         FormMixin
     ],
 
     getInitialState() {
         return {
-            user: {}
+            user: {},
+            loading: false
         }
     },
 
-    onLogin() {
+    onLoginCompleted() {
         this.props.router.push({pathname: '/dashboard'});
+
+    },
+
+    onLoginFailed() {
+        this.updateProperty('loading', false);
+    },
+
+    onSubmit() {
+        this.updateProperty('loading', true);
     },
 
     render(){
@@ -50,7 +65,13 @@ export default React.createClass({
                     </FormGroup>
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
-                            <Button bsStyle="primary" onClick={AuthActions.loadUser.bind(this, this.state.user)} type="submit" >Sign in</Button>
+                            <Button
+                                type="button"
+                                bsStyle="primary"
+                                disabled={this.state.loading}
+                                onClick={AuthActions.loadUser.bind(this, this.state.user)}>
+                                {this.state.loading ? 'Loading...' : 'Submit'}
+                            </Button>
                             &nbsp;
                             <LinkContainer to={{pathname: '/register'}}>
                                 <Button>Register now</Button>

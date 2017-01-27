@@ -4,7 +4,6 @@ import React from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 import App from 'components/layout/app';
 import Base from 'components/layout/base';
-// import AuthStore from 'stores/auth';
 
 // Auth
 import loginView from 'modules/views/dashboard/login';
@@ -37,12 +36,6 @@ import slidesListView from 'modules/views/slides/list';
 import slidesDetailView from 'modules/views/slides/detail';
 import slidesEditView from 'modules/views/slides/edit';
 import slidesNewView from 'modules/views/slides/new';
-
-// let authenticator = () => {
-//     if (AuthStore.getToken() == null) {
-//         browserHistory.push( '/users/12')
-//     }
-// };
 
 export default (
     <Router history={browserHistory}>

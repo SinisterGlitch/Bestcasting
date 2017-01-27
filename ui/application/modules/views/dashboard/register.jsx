@@ -29,8 +29,17 @@ export default React.createClass({
         });
     },
 
-    onRegister() {
-        // this.props.router.push({pathname: '/dashboard'});
+    onLoginCompleted() {
+        this.props.router.push({pathname: '/login'});
+
+    },
+
+    onLoginFailed() {
+        this.updateProperty('loading', false);
+    },
+
+    onSubmit() {
+        this.updateProperty('loading', true);
     },
 
     render(){
@@ -58,7 +67,13 @@ export default React.createClass({
                     </FormGroup>
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
-                            <Button bsStyle="primary" onClick={AuthActions.postUser.bind(this, this.state.user)} type="submit" >Register</Button>
+                            <Button
+                                type="button"
+                                bsStyle="primary"
+                                disabled={this.state.loading}
+                                onClick={AuthActions.postUser.bind(this, this.state.user)}>
+                                {this.state.loading ? 'Loading...' : 'Register'}
+                            </Button>
                             &nbsp;
                             <LinkContainer to={{pathname: '/login'}}>
                                 <Button>Already have an account?</Button>
