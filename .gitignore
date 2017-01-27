@@ -2,9 +2,11 @@
 .DS_Screen
 composer.lock
 .idea/
-
+web/js/app.js
+web/js/app.js.gz
+web/js/app.js.map
+web/js/vendor.js
 app/config/parameters.yml
 var/
 vendor/
 node_modules
-web/bundles/
