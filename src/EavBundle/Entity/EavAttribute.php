@@ -3,7 +3,6 @@
 namespace EavBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\Groups;
 
 /**
@@ -23,12 +22,16 @@ class EavAttribute
     private $id;
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->screens = new ArrayCollection();
-    }
+     * @var EavEntity
+     * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="attributes")
+     **/
+    private $entity;
+
+    /**
+     * @var EavValue
+     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavValue", inversedBy="attributes")
+     **/
+    private $value;
 
     /**
      * @return integer
@@ -36,5 +39,24 @@ class EavAttribute
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return EavEntity
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * @param EavEntity $entity
+     * @return $this
+     */
+    public function setEntity(EavEntity $entity)
+    {
+        $this->entity = $entity;
+
+        return $this;
     }
 }

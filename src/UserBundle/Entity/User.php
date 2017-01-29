@@ -45,16 +45,16 @@ class User implements UserInterface
      * @var string
      * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
      */
-    protected $first_name;
+    protected $firstName;
 
     /**
      * @Groups({"list", "details"})
      * @Type("string")
      *
      * @var string
-     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="lastName", type="string", length=255, nullable=true)
      */
-    protected $last_name;
+    protected $lastName;
 
     /**
      * @Groups({"details"})
@@ -107,12 +107,6 @@ class User implements UserInterface
     protected $email;
 
     /**
-     * @var Store[]
-     * @ORM\OneToMany(targetEntity="CatalogBundle\Entity\Store", mappedBy="user")
-     **/
-    private $stores;
-
-    /**
      * @return integer
      */
     public function getId()
@@ -129,12 +123,12 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $firstname
+     * @param string $firstName
      * @return $this
      */
-    public function setFirstname($firstname)
+    public function setFirstName($firstName)
     {
-        $this->firstname = $firstname;
+        $this->firstName = $firstName;
 
         return $this;
     }
@@ -142,9 +136,9 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getFirstname()
+    public function getFirstName()
     {
-        return $this->firstname;
+        return $this->firstName;
     }
 
     /**
@@ -163,7 +157,7 @@ class User implements UserInterface
      */
     public function getLastName()
     {
-        return $this->last_name;
+        return $this->lastName;
     }
 
     /**

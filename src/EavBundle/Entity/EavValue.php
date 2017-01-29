@@ -3,7 +3,6 @@
 namespace EavBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\Groups;
 
 /**
@@ -21,14 +20,6 @@ class EavValue
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->screens = new ArrayCollection();
-    }
 
     /**
      * @return integer
