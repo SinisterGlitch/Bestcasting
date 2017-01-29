@@ -2,10 +2,10 @@
 
 namespace UserBundle\Entity;
 
-use CastingBundle\Entity\Playlist;
-use CastingBundle\Entity\Screen;
-use CastingBundle\Entity\Slide;
-use CastingBundle\Entity\Store;
+use CatalogBundle\Entity\Playlist;
+use CatalogBundle\Entity\Screen;
+use CatalogBundle\Entity\Slide;
+use CatalogBundle\Entity\Store;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -108,7 +108,7 @@ class User implements UserInterface
 
     /**
      * @var Store[]
-     * @ORM\OneToMany(targetEntity="CastingBundle\Entity\Store", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="CatalogBundle\Entity\Store", mappedBy="user")
      **/
     private $stores;
 

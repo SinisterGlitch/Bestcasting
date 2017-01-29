@@ -14,7 +14,7 @@ export default React.createClass({
     render(){
         return (
             <div className="content">
-                <span>Welcome, {this.state.user.username}</span> |
+                <span>Welcome, {this.state.user.username}</span>
             </div>
         )
     }

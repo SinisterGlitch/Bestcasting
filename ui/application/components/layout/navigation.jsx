@@ -3,40 +3,39 @@
 import React from 'react';
 import AuthStore from 'stores/auth';
 import {Navbar, Nav, MenuItem, NavDropdown} from 'react-bootstrap';
-
-import { LinkContainer } from 'react-router-bootstrap'
+import {LinkContainer} from 'react-router-bootstrap'
 
 export default React.createClass({
 
     menuItems: [
-        {label: 'home', route: '/dashboard'},
-        {label: 'stores', route: [
+        {label: 'Dashboard', route: '/dashboard'},
+        {label: 'Catalog', route: [
             {label: 'browse', route: '/stores'},
             {label: 'create', route: '/stores/new'}
-        ]},
-        {label: 'screens', route: [
-            {label: 'browse', route: '/screens'},
-            {label: 'create', route: '/screens/new'}
-        ]},
-        {label: 'playlists', route: [
-            {label: 'browse', route: '/playlists'},
-            {label: 'create', route: '/playlists/new'}
-        ]},
-        {label: 'slides', route: [
-            {label: 'browse', route: '/slides'},
-            {label: 'create', route: '/slides/new'}
         ]}
     ],
 
-    loginItems: [
-        {label: 'User', route: [
-            AuthStore.getToken()
-                ? {label: 'logout', route: '/logout'}
-                : {label: 'login', route: '/login'},
-                  {label: 'register', route: '/register'}
-        ]}
-    ],
+    getLoginItems() {
+        let label = 'User';
+        let routes = [
+            {label: 'register', route: '/register'},
+            {label: 'login', route: '/login'}
+        ];
 
+        if (AuthStore.getToken()) {
+            label = AuthStore.getUser().first_name.charAt(0).toUpperCase() +
+                    AuthStore.getUser().last_name.charAt(0).toUpperCase();
+
+            routes = [
+                {label: 'logout', route: '/logout'}
+            ];
+        }
+
+        return [{
+            label: label,
+            route: routes
+        }];
+    },
 
     renderItem(item) {
         if (typeof item.route != 'object') {
@@ -56,10 +55,10 @@ export default React.createClass({
 
     render() {
         return (
-            <Navbar collapseOnSelect>
+            <Navbar className="main-nav" staticTop inverse collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
-                       Bestcasting
+                       UTOMO
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
@@ -68,7 +67,7 @@ export default React.createClass({
                         {this.menuItems.map((item) => this.renderItem(item))}
                     </Nav>
                     <Nav pullRight>
-                        {this.loginItems.map((item) => this.renderItem(item))}
+                        {this.getLoginItems().map((item) => this.renderItem(item))}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

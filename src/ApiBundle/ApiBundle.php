@@ -6,7 +6,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class ApiBundle
- * @package CastingBundle
+ * @package CatalogBundle
  */
 class ApiBundle extends Bundle
 {

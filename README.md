@@ -1,1 +1,0 @@
-Bestcasting, a narrowcasting platform with ReactJS

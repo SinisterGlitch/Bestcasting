@@ -1,3 +1,53 @@
-html,body {
-
+html, head, body  {
+    background: #f9f9fb;
+}
+.container {
+    width:100%;
+}
+.navbar {
+    margin-bottom: 0;
+}
+.btn-primary {
+    background: #51a3ff;
+    border-color: #51a3ff;
+}
+.btn-primary:hover, .btn-primary:active {
+    background: #43c4fa;
+    border-color: #43c4fa;
+}
+.main-nav {
+    margin-bottom: 0;
+    background: #303949;
+    font-size: 1.2em;
+    padding:5px;
+}
+.toolbar-nav {
+    margin-bottom: 0;
+    padding:15px;
+}
+.navbar-brand {
+    color: #f9f9fb !important;
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover, .navbar-nav > .active a:hover {
+    background:none !important;
+    box-shadow: none;
+}
+.btn-default {
+    background:#fbfbfb;
+}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border:none;
+}
+.list-group {
+    padding:0;
+    margin:0;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+}
+.content {
+    padding:15px;
 }
