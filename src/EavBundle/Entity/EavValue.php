@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="product_attribute_value")
+ * @ORM\Table(name="eav_entity_attribute_value")
  * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavValueRepository")
  * @ORM\MappedSuperclass()
  */
@@ -27,8 +27,8 @@ class EavValue
     protected $value;
 
     /**
-     * @var Attribute[]
-     * @ORM\OneToMany(targetEntity="CatalogBundle\Entity\Attribute", mappedBy="value")
+     * @var EavAttribute[]
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavAttribute", mappedBy="value")
      */
     protected $attribute;
 

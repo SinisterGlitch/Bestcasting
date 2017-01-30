@@ -28,7 +28,7 @@ class EavEntity
 
     /**
      * @var EavGroup[]
-     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", inversedBy="attributes")
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes")
      */
     protected $groups;
 

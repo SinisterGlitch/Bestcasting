@@ -5,7 +5,7 @@ namespace EavBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="eav_attribute")
+ * @ORM\Table(name="eav_entity_attribute")
  * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavAttributeRepository")
  * @ORM\MappedSuperclass()
  */
