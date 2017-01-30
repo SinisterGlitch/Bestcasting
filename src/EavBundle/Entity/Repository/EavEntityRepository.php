@@ -3,6 +3,7 @@
 namespace EavBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class EavEntityRepository

@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(name="eav_entity_attribute")
  * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavAttributeRepository")
- * @ORM\MappedSuperclass()
  */
 class EavAttribute
 {
@@ -27,7 +26,7 @@ class EavAttribute
 
     /**
      * @var EavGroup
-     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes")
+     * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavGroup", inversedBy="attributes")
      */
     protected $group;
 

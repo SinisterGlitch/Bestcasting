@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(name="eav_entity_attribute_value")
  * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavValueRepository")
- * @ORM\MappedSuperclass()
  */
 class EavValue
 {
@@ -28,9 +27,15 @@ class EavValue
 
     /**
      * @var EavAttribute[]
-     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavAttribute", mappedBy="value")
+     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavAttribute", inversedBy="value")
      */
     protected $attribute;
+
+    /**
+     * @var EavOption[]
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavOption", mappedBy="value")
+     */
+    protected $options;
 
     /**
      * @return integer

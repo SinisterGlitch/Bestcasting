@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Table(name="eav_entity")
  * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavEntityRepository")
- * @ORM\MappedSuperclass()
  */
 class EavEntity
 {
