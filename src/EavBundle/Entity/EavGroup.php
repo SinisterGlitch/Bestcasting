@@ -26,7 +26,7 @@ class EavGroup
     protected $code;
 
     /**
-     * @var EavEntity[]
+     * @var EavEntity
      * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="groups")
      */
     protected $entity;
@@ -94,6 +94,22 @@ class EavGroup
     public function removeAttribute(EavAttribute $attributes)
     {
         $this->attributes->removeElement($attributes);
+    }
+
+    /**
+     * @return EavEntity
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * @param EavEntity $entity
+     */
+    public function setEntity(EavEntity $entity)
+    {
+        $this->entity = $entity;
     }
 
     /**

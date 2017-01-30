@@ -32,6 +32,12 @@ class EavEntity
     protected $groups;
 
     /**
+     * @var EavValue[]
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="value")
+     */
+    protected $values;
+
+    /**
      * @return integer
      */
     public function getId()
@@ -45,6 +51,7 @@ class EavEntity
     public function __construct()
     {
         $this->groups = new ArrayCollection();
+        $this->values = new ArrayCollection();
     }
 
     /**
@@ -92,6 +99,47 @@ class EavEntity
     public function removeGroup(EavGroup $group)
     {
         $this->groups[] = $group;
+
+        return $this;
+    }
+
+    /**
+     * @return EavValue[]
+     */
+    public function getValues()
+    {
+        return $this->values;
+    }
+
+    /**
+     * @param EavValue[] $values
+     * @return $this
+     */
+    public function setValues($values)
+    {
+        $this->values = $values;
+
+        return $this;
+    }
+
+    /**
+     * @param EavValue $value
+     * @return $this
+     */
+    public function addValue(EavValue $value)
+    {
+        $this->values[] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param EavValue $value
+     * @return $this
+     */
+    public function removeValue(EavValue $value)
+    {
+        $this->values->removeElement($value);
 
         return $this;
     }
