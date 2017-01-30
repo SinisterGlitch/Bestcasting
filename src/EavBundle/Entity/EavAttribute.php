@@ -8,14 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
  * Class EavAttribute
  * @package EavBundle\Entity
  */
-abstract class EavAttribute
+class EavAttribute
 {
     /**
-     * @var integer
-     *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @var integer
      */
     protected $id;
 

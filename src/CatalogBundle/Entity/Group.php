@@ -3,14 +3,14 @@
 namespace CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use EavBundle\Entity\EavEntity;
+use EavBundle\Entity\EavGroup;
 
 /**
  * @ORM\Table(name="product_attribute_group")
- * @ORM\Entity(repositoryClass="CatalogBundle\Entity\Repository\ProductRepository")
+ * @ORM\Entity(repositoryClass="CatalogBundle\Entity\Repository\GroupRepository")
  * @ORM\MappedSuperclass()
  */
-class Group extends EavEntity
+class Group extends EavGroup
 {
     /**
      * @var Attribute[]

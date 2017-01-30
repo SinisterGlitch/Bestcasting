@@ -9,14 +9,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class EavEntity
  * @package EavBundle\Entity
  */
-abstract class EavEntity
+class EavEntity
 {
     /**
-     * @var integer
-     *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @var integer
      */
     protected $id;
 
