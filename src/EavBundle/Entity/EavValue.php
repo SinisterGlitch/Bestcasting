@@ -4,18 +4,15 @@ namespace EavBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Table(name="eav_entity_attribute_value")
- * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavRepository")
+ * Class EavValue
+ * @package EavBundle\Entity
  */
 class EavValue
 {
     /**
      * @var integer
-     * @Groups({"list", "details"})
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -24,14 +21,12 @@ class EavValue
 
     /**
      * @var string
-     * @Groups({"list", "details"})
      * @ORM\Column(name="code", type="string")
      */
     private $code;
 
     /**
      * @var string
-     * @Groups({"list", "details"})
      * @ORM\Column(name="value", type="string")
      */
     private $value;
