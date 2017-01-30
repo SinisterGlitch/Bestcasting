@@ -5,8 +5,9 @@ namespace EavBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class EavAttribute
- * @package EavBundle\Entity
+ * @ORM\Table(name="eav_attribute")
+ * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavAttributeRepository")
+ * @ORM\MappedSuperclass()
  */
 class EavAttribute
 {
@@ -25,12 +26,14 @@ class EavAttribute
     protected $code;
 
     /**
-     * @var EavEntity
+     * @var EavGroup
+     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes")
      */
-    protected $entity;
+    protected $group;
 
     /**
      * @var EavValue
+     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavValue", mappedBy="value")
      */
     protected $value;
 
@@ -40,25 +43,6 @@ class EavAttribute
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return EavEntity
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-
-    /**
-     * @param EavEntity $entity
-     * @return $this
-     */
-    public function setEntity(EavEntity $entity)
-    {
-        $this->entity = $entity;
-
-        return $this;
     }
 
     /**
@@ -95,6 +79,25 @@ class EavAttribute
     public function setCode($code)
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @return EavGroup
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * @param EavGroup $group
+     * @return $this
+     */
+    public function setGroup(EavGroup $group)
+    {
+        $this->group = $group;
 
         return $this;
     }

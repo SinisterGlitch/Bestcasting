@@ -5,8 +5,9 @@ namespace EavBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class EavOption
- * @package EavBundle\Entity
+ * @ORM\Table(name="eav_etity_attribute_value_option")
+ * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavOptionRepository")
+ * @ORM\MappedSuperclass()
  */
 class EavOption
 {
@@ -25,7 +26,8 @@ class EavOption
     protected $code;
 
     /**
-     * @var EavValue
+     * @var EavAttribute[]
+     * @ORM\OneToMany(targetEntity="CatalogBundle\Entity\Attribute", mappedBy="value")
      */
     protected $attribute;
 

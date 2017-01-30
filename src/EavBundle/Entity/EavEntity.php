@@ -6,8 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class EavEntity
- * @package EavBundle\Entity
+ * @ORM\Table(name="eav_entity")
+ * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavEntityRepository")
+ * @ORM\MappedSuperclass()
  */
 class EavEntity
 {
@@ -27,6 +28,7 @@ class EavEntity
 
     /**
      * @var EavGroup[]
+     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", inversedBy="attributes")
      */
     protected $groups;
 
@@ -43,7 +45,7 @@ class EavEntity
      */
     public function __construct()
     {
-        $this->grups = new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
 
     /**
