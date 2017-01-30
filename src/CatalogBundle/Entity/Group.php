@@ -6,15 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use EavBundle\Entity\EavEntity;
 
 /**
- * @ORM\Table(name="product")
+ * @ORM\Table(name="product_attribute_group")
  * @ORM\Entity(repositoryClass="CatalogBundle\Entity\Repository\ProductRepository")
  * @ORM\MappedSuperclass()
  */
-class Product extends EavEntity
+class Group extends EavEntity
 {
     /**
-     * @var Group[]
-     * @ORM\ManyToMany(targetEntity="CatalogBundle\Entity\Group", mappedBy="product")
+     * @var Attribute[]
+     * @ORM\ManyToMany(targetEntity="CatalogBundle\Entity\Attribute", mappedBy="product")
      */
-    protected $groups;
+    protected $attributes;
 }

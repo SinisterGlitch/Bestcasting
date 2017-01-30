@@ -2,13 +2,14 @@
 
 namespace EavBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class EavAttribute
+ * Class EavGroup
  * @package EavBundle\Entity
  */
-abstract class EavAttribute
+abstract class EavGroup
 {
     /**
      * @var integer
@@ -26,14 +27,22 @@ abstract class EavAttribute
     protected $code;
 
     /**
-     * @var EavEntity
+     * @var EavAttribute[]
      */
-    protected $entity;
+    protected $attributes;
 
     /**
      * @var EavValue
      */
     protected $value;
+
+    /**
+     * EavGroup constructor.
+     */
+    public function __construct()
+    {
+        $this->attributes = new ArrayCollection();
+    }
 
     /**
      * @return integer
@@ -44,22 +53,41 @@ abstract class EavAttribute
     }
 
     /**
-     * @return EavEntity
+     * @return EavAttribute[]
      */
-    public function getEntity()
+    public function getAttributes()
     {
-        return $this->entity;
+        return $this->attributes;
     }
 
     /**
-     * @param EavEntity $entity
+     * @param EavAttribute[] $attributes
      * @return $this
      */
-    public function setEntity(EavEntity $entity)
+    public function setAttributes($attributes)
     {
-        $this->entity = $entity;
+        $this->attributes = $attributes;
 
         return $this;
+    }
+
+    /**
+     * @param EavAttribute $attributes
+     * @return $this
+     */
+    public function addAttribute(EavAttribute $attributes)
+    {
+        $this->attributes[] = $attributes;
+
+        return $this;
+    }
+
+    /**
+     * @param EavAttribute $attributes
+     */
+    public function removeAttribute(EavAttribute $attributes)
+    {
+        $this->attributes->removeElement($attributes);
     }
 
     /**

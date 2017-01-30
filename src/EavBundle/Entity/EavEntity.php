@@ -8,10 +8,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Class EavEntity
  * @package EavBundle\Entity
- * @ORM\MappedSuperclass
  */
 abstract class EavEntity
 {
+    /**
+     * @var integer
+     *
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
     /**
      * @var string
      * @ORM\Column(name="code", type="string")
@@ -19,17 +27,24 @@ abstract class EavEntity
     protected $code;
 
     /**
-     * @var EavAttribute[]
-     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavAttribute", mappedBy="entity")
+     * @var EavGroup[]
      */
-    protected $attributes;
+    protected $groups;
+
+    /**
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->attributes = new ArrayCollection();
+        $this->grups = new ArrayCollection();
     }
 
     /**
@@ -52,40 +67,32 @@ abstract class EavEntity
     }
 
     /**
-     * @return EavAttribute[]
+     * @return EavGroup[]
      */
-    public function getAttributes()
+    public function getGroups()
     {
-        return $this->attributes;
+        return $this->groups;
     }
 
     /**
-     * @param EavAttribute[] $attributes
+     * @param EavGroup $group
      * @return $this
      */
-    public function setAttributes($attributes)
+    public function addGroup(EavGroup $group)
     {
-        $this->attributes = $attributes;
+        $this->groups[] = $group;
 
         return $this;
     }
 
     /**
-     * @param EavAttribute $attributes
+     * @param EavGroup $group
      * @return $this
      */
-    public function addAttribute(EavAttribute $attributes)
+    public function removeGroup(EavGroup $group)
     {
-        $this->attributes[] = $attributes;
+        $this->groups[] = $group;
 
         return $this;
-    }
-
-    /**
-     * @param EavAttribute $attributes
-     */
-    public function removeAttribute(EavAttribute $attributes)
-    {
-        $this->attributes->removeElement($attributes);
     }
 }

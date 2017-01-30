@@ -1,29 +1,26 @@
 <?php
 
-namespace EavBundle\Entity;
+namespace CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use EavBundle\Entity\EavAttribute;
 
 /**
  * @ORM\Table(name="product_attribute")
  * @ORM\Entity(repositoryClass="CatalogBundle\Entity\Repository\AttributeRepository")
+ * @ORM\MappedSuperclass()
  */
 class Attribute extends EavAttribute
 {
     /**
-     * @var integer
-     *
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var Group
+     * @ORM\ManyToMany(targetEntity="CatalogBundle\Entity\Product", mappedBy="attributes")
      */
-    protected $id;
+    protected $group;
 
     /**
-     * @return integer
+     * @var Value
+     * @ORM\OneToOne(targetEntity="CatalogBundle\Entity\Value", mappedBy="value")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $value;
 }
