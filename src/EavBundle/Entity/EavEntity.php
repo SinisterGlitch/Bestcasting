@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Table(name="eav_entity")
- * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavRepository")
+ * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavEntityRepository")
  */
 class EavEntity
 {
@@ -31,7 +31,7 @@ class EavEntity
 
     /**
      * @var EavAttribute[]
-     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavAttribute", inversedBy="eav_entity")
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavAttribute", mappedBy="entity")
      **/
     private $attributes;
 

@@ -5,9 +5,9 @@ namespace EavBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class EavEntityRepository
+ * Class EavAttributeRepository
  * @package EavBundle\Entity
  */
-class EavEntityRepository extends EntityRepository
+class EavAttributeRepository extends EntityRepository
 {
 }

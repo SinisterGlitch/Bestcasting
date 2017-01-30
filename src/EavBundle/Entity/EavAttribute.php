@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Table(name="eav_entity_attribute")
- * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavRepository")
+ * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavAttributeRepository")
  */
 class EavAttribute
 {
@@ -22,8 +22,15 @@ class EavAttribute
     private $id;
 
     /**
+     * @var string
+     * @Groups({"list", "details"})
+     * @ORM\Column(name="code", type="string")
+     */
+    private $code;
+
+    /**
      * @var EavEntity
-     * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="attributes")
+     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="attributes")
      **/
     private $entity;
 
@@ -56,6 +63,44 @@ class EavAttribute
     public function setEntity(EavEntity $entity)
     {
         $this->entity = $entity;
+
+        return $this;
+    }
+
+    /**
+     * @return EavValue
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param EavValue $value
+     * @return $this
+     */
+    public function setValue(EavValue $value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     * @return $this
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
 
         return $this;
     }
