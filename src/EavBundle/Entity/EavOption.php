@@ -7,30 +7,15 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class EavOption
  * @package EavBundle\Entity
+ * @ORM\MappedSuperclass
  */
-class EavOption
+abstract class EavOption
 {
-    /**
-     * @var integer
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      * @ORM\Column(name="code", type="string")
      */
-    private $code;
-
-    /**
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $code;
 
     /**
      * @return string

@@ -8,49 +8,34 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class EavValue
  * @package EavBundle\Entity
+ * @ORM\MappedSuperclass
  */
-class EavValue
+abstract class EavValue
 {
-    /**
-     * @var integer
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      * @ORM\Column(name="code", type="string")
      */
-    private $code;
+    protected $code;
 
     /**
      * @var string
      * @ORM\Column(name="value", type="string")
      */
-    private $value;
+    protected $value;
 
     /**
      * @var EavOption[]
      * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavOption", mappedBy="value")
-     **/
-    private $options;
+     */
+    protected $options;
 
     /**
      * EavValue constructor.
      */
-    private function __construct()
+    protected function __construct()
     {
         $this->options = new ArrayCollection();
-    }
-
-    /**
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

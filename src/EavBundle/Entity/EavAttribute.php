@@ -7,42 +7,27 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class EavAttribute
  * @package EavBundle\Entity
+ * @ORM\MappedSuperclass
  */
-class EavAttribute
+abstract class EavAttribute
 {
-    /**
-     * @var integer
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      * @ORM\Column(name="code", type="string")
      */
-    private $code;
+    protected $code;
 
     /**
      * @var EavEntity
-     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="attributes")
-     **/
-    private $entity;
+     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavEntity", mappedBy="attributes")
+     */
+    protected $entity;
 
     /**
      * @var EavValue
-     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavValue", inversedBy="attributes")
-     **/
-    private $value;
-
-    /**
-     * @return integer
+     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavValue", mappedBy="value")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $value;
 
     /**
      * @return EavEntity

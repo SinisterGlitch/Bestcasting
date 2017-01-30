@@ -8,28 +8,21 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Class EavEntity
  * @package EavBundle\Entity
+ * @ORM\MappedSuperclass
  */
-class EavEntity
+abstract class EavEntity
 {
-    /**
-     * @var integer
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      * @ORM\Column(name="code", type="string")
      */
-    private $code;
+    protected $code;
 
     /**
      * @var EavAttribute[]
      * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavAttribute", mappedBy="entity")
-     **/
-    private $attributes;
+     */
+    protected $attributes;
 
     /**
      * Constructor
@@ -37,14 +30,6 @@ class EavEntity
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
-    }
-
-    /**
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
