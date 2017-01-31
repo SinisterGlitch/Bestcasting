@@ -54,7 +54,7 @@ class EavValue
     /**
      * EavValue constructor.
      */
-    protected function __construct()
+    public function __construct()
     {
         $this->options = new ArrayCollection();
     }

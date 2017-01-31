@@ -27,20 +27,16 @@ class EavGroup
 
     /**
      * @var EavEntity
-     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="groups")
+     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="groups", cascade={"persist"})
      */
     protected $entity;
 
     /**
      * @var EavAttribute[]
-     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavAttribute", mappedBy="group")
+     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavAttribute", mappedBy="group", cascade={"persist"})
      */
     protected $attributes;
 
-    /**
-     * @var EavValue
-     */
-    protected $value;
 
     /**
      * EavGroup constructor.
@@ -106,27 +102,11 @@ class EavGroup
 
     /**
      * @param EavEntity $entity
+     * @return $this
      */
     public function setEntity(EavEntity $entity)
     {
         $this->entity = $entity;
-    }
-
-    /**
-     * @return EavValue
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param EavValue $value
-     * @return $this
-     */
-    public function setValue(EavValue $value)
-    {
-        $this->value = $value;
 
         return $this;
     }

@@ -4,10 +4,15 @@ namespace EavBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\ORM\Mapping\InheritanceType;
 
 /**
- * @ORM\Table(name="eav_entity")
  * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavEntityRepository")
+ *
+ * @InheritanceType("SINGLE_TABLE")
+ * @DiscriminatorColumn(name="discr", type="string")
  */
 class EavEntity
 {
@@ -27,13 +32,13 @@ class EavEntity
 
     /**
      * @var EavGroup[]
-     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes")
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes", cascade={"persist"})
      */
     protected $groups;
 
     /**
      * @var EavValue[]
-     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="value")
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="value", cascade={"persist"})
      */
     protected $values;
 

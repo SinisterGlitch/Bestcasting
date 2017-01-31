@@ -44,7 +44,7 @@ class EavAttribute
 
     /**
      * @var EavGroup
-     * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavGroup", inversedBy="attributes")
+     * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavGroup", inversedBy="attributes", cascade={"persist"})
      */
     protected $group;
 
@@ -133,21 +133,21 @@ class EavAttribute
     }
 
     /**
+     * @param boolean $searchable
+     * @return $this
+     */
+    public function setSearchable($searchable)
+    {
+        $this->searchable = $searchable;
+
+        return $this;
+    }
+
+    /**
      * @return boolean
      */
     public function isSearchable()
     {
         return $this->searchable;
-    }
-
-    /**
-     * @param boolean $searchable
-     * @return $this
-     */
-    public function setIearchable($searchable)
-    {
-        $this->searchable = $searchable;
-
-        return $this;
     }
 }
