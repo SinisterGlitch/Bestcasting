@@ -5,8 +5,8 @@ import { Link } from 'react-router';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import StoresStore from 'modules/stores/stores';
-import StoresActions from 'modules/actions/stores';
+import StoresStore from 'modules/stores/attribute';
+import StoresActions from 'modules/actions/attribute';
 
 export default React.createClass({
 
@@ -20,13 +20,13 @@ export default React.createClass({
 
     getInitialState() {
         return {
-            stores: StoresStore.getStores()
+            attributes: StoresStore.getStores()
         }
     },
 
     onLoadStores() {
         this.setState({
-            stores: StoresStore.getStores()
+            attributes: StoresStore.getStores()
         });
     },
 
@@ -42,23 +42,23 @@ export default React.createClass({
                     </tr>
                     </thead>
                     <tbody>
-                        {_.map(this.state.stores, this.renderRow)}
+                        {_.map(this.state.attributes, this.renderRow)}
                     </tbody>
                 </table>
             </div>
         )
     },
 
-    renderRow(store) {
-        if (_.isUndefined(store)) {
+    renderRow(attribute) {
+        if (_.isUndefined(attribute)) {
             return;
         }
 
         return (
-            <tr key={store.id}>
-                <td>{store.name}</td>
-                <td><Link key="detail" to={'/stores/detail/'+store.id}>detail</Link></td>
-                <td><Link key="edit" to={'/stores/edit/'+store.id}>edit</Link></td>
+            <tr key={attribute.id}>
+                <td>{attribute.name}</td>
+                <td><Link key="detail" to={'/attribute/detail/'+attribute.id}>detail</Link></td>
+                <td><Link key="edit" to={'/attribute/edit/'+attribute.id}>edit</Link></td>
             </tr>
         );
     }

@@ -4,8 +4,8 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import StoresStore from 'modules/stores/stores';
-import StoresActions from 'modules/actions/stores';
+import StoresStore from 'modules/stores/attribute';
+import StoresActions from 'modules/actions/attribute';
 
 export default React.createClass({
 
@@ -21,20 +21,20 @@ export default React.createClass({
 
     getInitialState() {
         return {
-            store: StoresStore.getStore(this.props.params.id)
+            attribute: StoresStore.getStore(this.props.params.id)
         }
     },
 
     onLoadStore() {
         this.setState({
-            store: StoresStore.getStore(this.props.params.id)
+            attribute: StoresStore.getStore(this.props.params.id)
         });
     },
 
     render(){
         return (
             <div key="content">
-                {!_.isEmpty(this.state.store) ? this.state.store.id+' | '+this.state.store.name : ''}
+                {!_.isEmpty(this.state.attribute) ? this.state.attribute.id+' | '+this.state.attribute.name : ''}
             </div>
         )
     }

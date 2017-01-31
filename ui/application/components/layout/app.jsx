@@ -1,9 +1,8 @@
 'use strict';
 
 import React from 'react';
-import {Grid, Row, Jumbotron, Col} from 'react-bootstrap';
+import {Grid, Row} from 'react-bootstrap';
 
-import Notification from 'components/layout/notification';
 import Toolbar from 'components/layout/toolbar';
 import Navigation from 'components/layout/navigation';
 

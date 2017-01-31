@@ -1,0 +1,4 @@
+services:
+    eav.eav.manager:
+        class: EavBundle\Service\Eav\EavManager
+        arguments: ['@doctrine.orm.entity_manager']

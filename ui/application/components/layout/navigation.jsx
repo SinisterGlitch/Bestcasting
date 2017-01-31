@@ -9,9 +9,9 @@ export default React.createClass({
 
     menuItems: [
         {label: 'Dashboard', route: '/dashboard'},
-        {label: 'Catalog', route: [
-            {label: 'browse', route: '/stores'},
-            {label: 'create', route: '/stores/new'}
+        {label: 'Attribute', route: [
+            {label: 'Browse', route: '/attribute'},
+            {label: 'Create', route: '/attribute/new'}
         ]}
     ],
 

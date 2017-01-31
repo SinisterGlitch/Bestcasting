@@ -16,11 +16,11 @@ import authRegisterView from 'modules/views/auth/register';
 // dashboard
 import dashboardIndexView from 'modules/views/dashboard/index';
 
-// stores
-import storesListView from 'modules/views/stores/list';
-import storesDetailView from 'modules/views/stores/detail';
-import storesEditView from 'modules/views/stores/edit';
-import storesNewView from 'modules/views/stores/new';
+// attribute
+import attributeListView from 'modules/views/attribute/list';
+import attributeDetailView from 'modules/views/attribute/detail';
+import attributeEditView from 'modules/views/attribute/edit';
+import attributeNewView from 'modules/views/attribute/new';
 
 let validate = (nextState, location) => {
     if (!AuthStore.getToken()) {
@@ -38,10 +38,10 @@ export default (
             <Route component={App} path="/dashboard" onEnter={validate}>
                 <IndexRoute component={dashboardIndexView}/>
 
-                <Route component={storesListView} path="/stores" />
-                <Route component={storesDetailView} path="/stores/detail/:id" />
-                <Route component={storesEditView} path="/stores/edit/:id" />
-                <Route component={storesNewView} path="/stores/new" />
+                <Route component={attributeListView} path="/attribute" />
+                <Route component={attributeDetailView} path="/attribute/detail/:id" />
+                <Route component={attributeEditView} path="/attribute/edit/:id" />
+                <Route component={attributeNewView} path="/attribute/new" />
 
                 <Route path="*" component={authNotFoundView}/>
             </Route>
