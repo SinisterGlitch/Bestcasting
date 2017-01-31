@@ -57,8 +57,6 @@ class TestCommand extends ContainerAwareCommand
             ->setCode('1232')
             ->addGroup($group);
 
-//        $repo = $this->getManager()->getRepository('EavBundle:Product');
-
         $this->getManager()->persist($product);
         $this->getManager()->persist($value);
         $this->getManager()->flush();

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="eav_entity_attribute_group")
+ * @ORM\Table(name="entity_attribute_group")
  * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavGroupRepository")
  */
 class EavGroup
@@ -36,7 +36,6 @@ class EavGroup
      * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavAttribute", mappedBy="group", cascade={"persist"})
      */
     protected $attributes;
-
 
     /**
      * EavGroup constructor.

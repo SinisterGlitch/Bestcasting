@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="eav_entity_attribute_value")
+ * @ORM\Table(name="entity_attribute_value")
  * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavValueRepository")
  */
 class EavValue

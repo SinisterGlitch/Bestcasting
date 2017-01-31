@@ -2,10 +2,11 @@
 
 namespace EavBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="eav_entity_attribute")
+ * @ORM\Table(name="entity_attribute")
  * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavAttributeRepository")
  */
 class EavAttribute
@@ -43,10 +44,19 @@ class EavAttribute
     protected $searchable = 0;
 
     /**
-     * @var EavGroup
-     * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavGroup", inversedBy="attributes", cascade={"persist"})
+     * @var EavGroup[]
+     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", inversedBy="attributes", cascade={"persist"})
+     * @ORM\JoinTable(name="entity_attribute_group_attribute")
      */
-    protected $group;
+    protected $groups;
+
+    /**
+     * EavAttribute constructor.
+     */
+    public function __construct()
+    {
+        $this->groups = new ArrayCollection();
+    }
 
     /**
      * @return integer
@@ -95,20 +105,42 @@ class EavAttribute
     }
 
     /**
-     * @return EavGroup
+     * @return EavGroup[]
      */
-    public function getGroup()
+    public function getGroups()
     {
-        return $this->group;
+        return $this->groups;
+    }
+
+    /**
+     * @param EavGroup[] $groups
+     * @return $this
+     */
+    public function setGroups($groups)
+    {
+        $this->groups = $groups;
+
+        return $this;
     }
 
     /**
      * @param EavGroup $group
      * @return $this
      */
-    public function setGroup(EavGroup $group)
+    public function addGroup(EavGroup $group)
     {
-        $this->group = $group;
+        $this->groups[] = $group;
+
+        return $this;
+    }
+
+    /**
+     * @param EavGroup $group
+     * @return $this
+     */
+    public function removeGroup(EavGroup $group)
+    {
+        $this->groups->removeElement($group);
 
         return $this;
     }
