@@ -139,7 +139,7 @@ class EavValue
     }
 
     /**
-     * @param string $value
+     * @param mixed $value
      * @return $this
      */
     public function setValue($value)

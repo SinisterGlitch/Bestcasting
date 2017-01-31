@@ -16,9 +16,9 @@ export default React.createClass({
         let result = null;
         let status = NotificationStore.getStatus();
 
-        if (status >= 400 && status < 500) {
+        if (status >= 400 && status <= 500) {
             result = 'error';
-        } else if (status >= 200 && status < 300) {
+        } else if (status >= 200 && status <= 300) {
             result ='success';
         }
 

@@ -2,10 +2,6 @@
 
 namespace UserBundle\Entity;
 
-use CatalogBundle\Entity\Playlist;
-use CatalogBundle\Entity\Screen;
-use CatalogBundle\Entity\Slide;
-use CatalogBundle\Entity\Store;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
@@ -20,6 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
     /**
+     * @var integer
      * @Groups({"list", "details"})
      * @Type("integer")
      *
@@ -43,18 +40,18 @@ class User implements UserInterface
      * @Type("string")
      *
      * @var string
-     * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
-    protected $firstName;
+    protected $firstname;
 
     /**
      * @Groups({"list", "details"})
      * @Type("string")
      *
      * @var string
-     * @ORM\Column(name="lastName", type="string", length=255, nullable=true)
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
      */
-    protected $lastName;
+    protected $lastname;
 
     /**
      * @Groups({"details"})
@@ -115,20 +112,12 @@ class User implements UserInterface
     }
 
     /**
-     * User constructor.
-     */
-    public function __construct()
-    {
-        $this->stores = new ArrayCollection();
-    }
-
-    /**
-     * @param string $firstName
+     * @param string $firstname
      * @return $this
      */
-    public function setFirstName($firstName)
+    public function setFirstName($firstname)
     {
-        $this->firstName = $firstName;
+        $this->firstname = $firstname;
 
         return $this;
     }
@@ -136,18 +125,18 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getFirstName()
+    public function getFirstname()
     {
-        return $this->firstName;
+        return $this->firstname;
     }
 
     /**
-     * @param string $lastName
+     * @param string $lastname
      * @return $this
      */
-    public function setLastName($lastName)
+    public function setLastname($lastname)
     {
-        $this->lastName = $lastName;
+        $this->lastname = $lastname;
 
         return $this;
     }
@@ -155,9 +144,9 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getLastName()
+    public function getLastNname()
     {
-        return $this->lastName;
+        return $this->lastname;
     }
 
     /**
@@ -307,80 +296,5 @@ class User implements UserInterface
         $this->email = $email;
 
         return $this;
-    }
-
-    /**
-     * @return Store[]
-     */
-    public function getStores()
-    {
-        return $this->stores;
-    }
-
-    /**
-     * @param Store $store
-     * @return $this
-     */
-    public function addStore(Store $store)
-    {
-        $this->stores->add($store);
-
-        return $this;
-    }
-
-    /**
-     * @param Store $store
-     * @return $this
-     */
-    public function removeStore(Store $store)
-    {
-        $this->stores->remove($store);
-
-        return $this;
-    }
-
-    /**
-     * @return Slide[]
-     */
-    public function getSlides()
-    {
-        $result = [];
-        foreach ($this->getPlaylists() as $playlist) {
-            foreach ($playlist->getSlides() as $slide) {
-                $result[] = $slide;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * @return Screen[]
-     */
-    public function getScreens()
-    {
-        $result = [];
-        foreach ($this->getStores() as $store) {
-            foreach ($store->getScreens() as $screen) {
-                $result[] = $screen;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * @return Playlist[]
-     */
-    public function getPlaylists()
-    {
-        $result = [];
-        foreach ($this->getScreens() as $screen) {
-            foreach ($screen->getPlaylists() as $playlist) {
-                $result[] = $playlist;
-            }
-        }
-
-        return $result;
     }
 }

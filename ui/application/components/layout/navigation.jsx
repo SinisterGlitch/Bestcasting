@@ -23,8 +23,8 @@ export default React.createClass({
         ];
 
         if (AuthStore.getToken()) {
-            label = AuthStore.getUser().first_name.charAt(0).toUpperCase() +
-                    AuthStore.getUser().last_name.charAt(0).toUpperCase();
+            label = AuthStore.getUser().firstname.charAt(0).toUpperCase() +
+                    AuthStore.getUser().lastname.charAt(0).toUpperCase();
 
             routes = [
                 {label: 'logout', route: '/logout'}
