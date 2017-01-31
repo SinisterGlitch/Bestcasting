@@ -11,6 +11,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EavAttribute
 {
+    const TYPE_SINGLE_SELECT = 'single_select';
+    const TYPE_MULTI_SELECT = 'multi_select';
+    const TYPE_NUMBER = 'number';
+    const TYPE_STRING = 'string';
+    const TYPE_BOOLEAN = 'bool';
+    const TYPE_FLOAT = 'float';
+    const TYPE_TEXT = 'text';
+    const TYPE_DATE = 'date';
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")

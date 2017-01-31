@@ -44,6 +44,48 @@ class EavValue
     protected $options;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="string_value", type="string", length=255, nullable=true)
+     */
+    private $stringValue;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="text_value", type="text", nullable=true)
+     */
+    private $textValue;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="number_value", type="bigint", nullable=true)
+     */
+    private $numberValue;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="float_value", type="float", nullable=true)
+     */
+    private $floatValue;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_value", type="datetime", nullable=true)
+     */
+    private $dateValue;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="boolean_value", type="boolean", nullable=true)
+     */
+    private $booleanValue;
+
+    /**
      * @return integer
      */
     public function getId()
@@ -64,7 +106,36 @@ class EavValue
      */
     public function getValue()
     {
-        return $this->value;
+        $result = null;
+        switch ($this->getAttribute()->getType()) {
+
+            case EavAttribute::TYPE_STRING:
+                $result = $this->getStringValue();
+                break;
+
+            case EavAttribute::TYPE_TEXT:
+                $result = $this->getTextValue();
+                break;
+
+            case EavAttribute::TYPE_NUMBER:
+                $result = $this->getNumberValue();
+                break;
+
+            case EavAttribute::TYPE_FLOAT:
+                $result = $this->getFloatValue();
+                break;
+
+            case EavAttribute::TYPE_DATE:
+                $result = $this->getDateValue();
+                break;
+
+            case EavAttribute::TYPE_MULTI_SELECT;
+            case EavAttribute::TYPE_SINGLE_SELECT;
+                $result = $this->getOptions();
+                break;
+        }
+
+        return $result;
     }
 
     /**
@@ -73,7 +144,33 @@ class EavValue
      */
     public function setValue($value)
     {
-        $this->value = $value;
+        switch ($this->getAttribute()->getType()) {
+
+            case EavAttribute::TYPE_STRING:
+                $this->setStringValue($value);
+                break;
+
+            case EavAttribute::TYPE_TEXT:
+                $this->setTextValue($value);
+                break;
+
+            case EavAttribute::TYPE_NUMBER:
+                $this->setNumberValue($value);
+                break;
+
+            case EavAttribute::TYPE_FLOAT:
+                $this->setFloatValue($value);
+                break;
+
+            case EavAttribute::TYPE_DATE:
+                $this->setDateValue($value);
+                break;
+
+            case EavAttribute::TYPE_SINGLE_SELECT;
+            case EavAttribute::TYPE_MULTI_SELECT;
+                $this->setOptions($value);
+                break;
+        }
 
         return $this;
     }
@@ -147,4 +244,119 @@ class EavValue
     {
         $this->options->removeElement($options);
     }
+
+    /**
+     * @return string
+     */
+    public function getStringValue()
+    {
+        return $this->stringValue;
+    }
+
+    /**
+     * @param string $stringValue
+     * @return $this
+     */
+    public function setStringValue($stringValue)
+    {
+        $this->stringValue = $stringValue;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTextValue()
+    {
+        return $this->textValue;
+    }
+
+    /**
+     * @param string $textValue
+     * @return $this
+     */
+    public function setTextValue($textValue)
+    {
+        $this->textValue = $textValue;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getNumberValue()
+    {
+        return $this->numberValue;
+    }
+
+    /**
+     * @param integer $numberValue
+     * @return $this
+     */
+    public function setNumberValue($numberValue)
+    {
+        $this->numberValue = $numberValue;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getFloatValue()
+    {
+        return $this->floatValue;
+    }
+
+    /**
+     * @param float $floatValue
+     * @return $this
+     */
+    public function setFloatValue($floatValue)
+    {
+        $this->floatValue = $floatValue;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateValue()
+    {
+        return $this->dateValue;
+    }
+
+    /**
+     * @param \DateTime $dateValue
+     * @return $this
+     */
+    public function setDateValue(\DateTime $dateValue)
+    {
+        $this->dateValue = $dateValue;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isBooleanValue()
+    {
+        return $this->booleanValue;
+    }
+
+    /**
+     * @param boolean $booleanValue
+     * @return $this
+     */
+    public function setBooleanValue($booleanValue)
+    {
+        $this->booleanValue = $booleanValue;
+
+        return $this;
+    }
+
 }
