@@ -70,7 +70,6 @@ sensio_framework_extra:
         annotations: true
     request: { converters: true }
 
-
 #FOSRestBundle Configuration
 fos_rest:
     routing_loader:

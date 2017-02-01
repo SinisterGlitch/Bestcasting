@@ -4,6 +4,7 @@ namespace EavBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Table(name="entity_attribute_value")
@@ -15,6 +16,7 @@ class EavValue
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"details", "list"})
      * @var integer
      */
     protected $id;
@@ -22,66 +24,70 @@ class EavValue
     /**
      * @var string
      * @ORM\Column(name="value", type="string")
+     * @Groups({"details", "list"})
      */
     protected $value;
 
     /**
      * @var EavEntity
      * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="values")
+     * @Groups({"details", "list"})
      */
     protected $entity;
 
     /**
      * @var EavAttribute
      * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavAttribute", inversedBy="value")
+     * @Groups({"details", "list"})
      */
     protected $attribute;
 
     /**
      * @var EavOption[]
      * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavOption", mappedBy="value")
+     * @Groups({"details", "list"})
      */
     protected $options;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="string_value", type="string", length=255, nullable=true)
+     * @Groups({"details", "list"})
      */
     private $stringValue;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="text_value", type="text", nullable=true)
+     * @Groups({"details", "list"})
      */
     private $textValue;
 
     /**
      * @var integer
-     *
      * @ORM\Column(name="number_value", type="bigint", nullable=true)
+     * @Groups({"details", "list"})
      */
     private $numberValue;
 
     /**
      * @var float
-     *
      * @ORM\Column(name="float_value", type="float", nullable=true)
+     * @Groups({"details", "list"})
      */
     private $floatValue;
 
     /**
      * @var \DateTime
-     *
      * @ORM\Column(name="date_value", type="datetime", nullable=true)
+     * @Groups({"details", "list"})
      */
     private $dateValue;
 
     /**
      * @var boolean
-     *
      * @ORM\Column(name="boolean_value", type="boolean", nullable=true)
+     * @Groups({"details", "list"})
      */
     private $booleanValue;
 

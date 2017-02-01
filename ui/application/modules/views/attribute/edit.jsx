@@ -7,7 +7,7 @@ import StateMixin from 'mixins/state-mixin';
 import AttributeStore from 'modules/stores/attribute';
 import AttributeActions from 'modules/actions/attribute';
 
-import EntitySelector from 'components/core/entity_selector';
+import EntityEditor from 'components/core/entity_editor';
 
 export default React.createClass({
 
@@ -39,7 +39,7 @@ export default React.createClass({
     render(){
         return (
             <div key="content">
-                <EntitySelector />
+                <EntityEditor />
             </div>
         );
     }

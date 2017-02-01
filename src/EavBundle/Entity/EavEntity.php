@@ -4,14 +4,12 @@ namespace EavBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\InheritanceType;
+use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\Annotation\Groups;
 
 /**
+ * @ORM\Table(name="entity")
  * @ORM\Entity(repositoryClass="EavBundle\Entity\Repository\EavEntityRepository")
- *
- * @InheritanceType("SINGLE_TABLE")
- * @DiscriminatorColumn(name="class", type="string")
  */
 class EavEntity
 {
@@ -19,6 +17,7 @@ class EavEntity
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"details", "list"})
      * @var integer
      */
     protected $id;
@@ -26,18 +25,28 @@ class EavEntity
     /**
      * @var string
      * @ORM\Column(name="code", type="string")
+     * @Groups({"details", "list"})
      */
     protected $code;
 
     /**
+     * @var string
+     * @ORM\Column(name="class", type="string")
+     * @Groups({"details", "list"})
+     */
+    protected $class;
+
+    /**
      * @var EavGroup[]
-     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes", cascade={"all"})
+     * @Groups({"details", "list"})
      */
     protected $groups;
 
     /**
      * @var EavValue[]
-     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="value", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="value", cascade={"all"})
+     * @Groups({"details", "list"})
      */
     protected $values;
 
@@ -144,6 +153,25 @@ class EavEntity
     public function removeValue(EavValue $value)
     {
         $this->values->removeElement($value);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    /**
+     * @param string $class
+     * @return $this
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
 
         return $this;
     }

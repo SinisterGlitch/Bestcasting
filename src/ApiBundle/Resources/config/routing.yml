@@ -7,3 +7,8 @@ api_auth_controller:
     resource: '@ApiBundle/Controller/AuthController.php'
     prefix: auth
     type: rest
+
+api_attribute_controller:
+    resource: '@ApiBundle/Controller/AttributeController.php'
+    prefix: attribute
+    type: rest

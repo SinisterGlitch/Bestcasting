@@ -4,6 +4,7 @@ namespace EavBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Table(name="entity_attribute")
@@ -24,6 +25,7 @@ class EavAttribute
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"details", "list"})
      * @var integer
      */
     protected $id;
@@ -31,24 +33,28 @@ class EavAttribute
     /**
      * @var string
      * @ORM\Column(name="code", type="string")
+     * @Groups({"details", "list"})
      */
     protected $code;
 
     /**
      * @var string
      * @ORM\Column(name="type", type="string")
+     * @Groups({"details", "list"})
      */
     protected $type;
 
     /**
      * @var boolean
      * @ORM\Column(name="required", type="boolean")
+     * @Groups({"details", "list"})
      */
     protected $required = 0;
 
     /**
      * @var boolean
      * @ORM\Column(name="searchable", type="boolean")
+     * @Groups({"details", "list"})
      */
     protected $searchable = 0;
 
@@ -56,6 +62,7 @@ class EavAttribute
      * @var EavGroup[]
      * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", inversedBy="attributes", cascade={"persist"})
      * @ORM\JoinTable(name="entity_attribute_group_attribute")
+     * @Groups({"details", "list"})
      */
     protected $groups;
 

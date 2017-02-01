@@ -4,7 +4,7 @@ import React from 'react';
 import Reflux from 'reflux';
 
 import AttributeActions from 'modules/actions/attribute';
-import EntitySelector from 'components/core/entity_selector';
+import EntityEditor from 'components/core/entity_editor';
 
 export default React.createClass({
 
@@ -23,7 +23,7 @@ export default React.createClass({
     render(){
         return (
             <div className="content">
-                <EntitySelector />
+                <EntityEditor />
             </div>
         )
     }

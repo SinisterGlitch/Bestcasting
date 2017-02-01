@@ -5,28 +5,28 @@ import { Link } from 'react-router';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
-import StoresStore from 'modules/stores/attribute';
-import StoresActions from 'modules/actions/attribute';
+import AttributeStore from 'modules/stores/attribute';
+import AttributeActions from 'modules/actions/attribute';
 
 export default React.createClass({
 
     mixins: [
-        Reflux.listenTo(StoresStore, 'onLoadStores')
+        Reflux.listenTo(AttributeStore, 'onLoadStores')
     ],
 
     componentDidMount() {
-        StoresActions.loadStores()
+        AttributeActions.loadAttributes()
     },
 
     getInitialState() {
         return {
-            attributes: StoresStore.getStores()
+            attributes: AttributeStore.getAttributes()
         }
     },
 
     onLoadStores() {
         this.setState({
-            attributes: StoresStore.getStores()
+            attributes: AttributeStore.getAttributes()
         });
     },
 
