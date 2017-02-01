@@ -5,6 +5,7 @@ namespace EavBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Table(name="entity_attribute_value")
@@ -17,6 +18,7 @@ class EavValue
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"details", "list"})
+     * @Type("integer")
      * @var integer
      */
     protected $id;
@@ -25,12 +27,14 @@ class EavValue
      * @var string
      * @ORM\Column(name="value", type="string")
      * @Groups({"details", "list"})
+     * @Type("string")
      */
     protected $value;
 
     /**
      * @var EavEntity
      * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="values")
+     * @Type("EavBundle\Entity\EavValue")
      * @Groups({"details", "list"})
      */
     protected $entity;
@@ -38,6 +42,7 @@ class EavValue
     /**
      * @var EavAttribute
      * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavAttribute", inversedBy="value")
+     * @Type("EavBundle\Entity\EavAttribute")
      * @Groups({"details", "list"})
      */
     protected $attribute;
@@ -45,6 +50,7 @@ class EavValue
     /**
      * @var EavOption[]
      * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavOption", mappedBy="value")
+     * @Type("EavBundle\Entity\EavValue")
      * @Groups({"details", "list"})
      */
     protected $options;
@@ -53,6 +59,7 @@ class EavValue
      * @var string
      * @ORM\Column(name="string_value", type="string", length=255, nullable=true)
      * @Groups({"details", "list"})
+     * @Type("string")
      */
     private $stringValue;
 
@@ -60,6 +67,7 @@ class EavValue
      * @var string
      * @ORM\Column(name="text_value", type="text", nullable=true)
      * @Groups({"details", "list"})
+     * @Type("string")
      */
     private $textValue;
 
@@ -67,6 +75,7 @@ class EavValue
      * @var integer
      * @ORM\Column(name="number_value", type="bigint", nullable=true)
      * @Groups({"details", "list"})
+     * @Type("string")
      */
     private $numberValue;
 
@@ -74,6 +83,7 @@ class EavValue
      * @var float
      * @ORM\Column(name="float_value", type="float", nullable=true)
      * @Groups({"details", "list"})
+     * @Type("string")
      */
     private $floatValue;
 
@@ -81,6 +91,7 @@ class EavValue
      * @var \DateTime
      * @ORM\Column(name="date_value", type="datetime", nullable=true)
      * @Groups({"details", "list"})
+     * @Type("DateTime<'Y-m-d'>")
      */
     private $dateValue;
 
@@ -88,6 +99,7 @@ class EavValue
      * @var boolean
      * @ORM\Column(name="boolean_value", type="boolean", nullable=true)
      * @Groups({"details", "list"})
+     * @Type("bool")
      */
     private $booleanValue;
 

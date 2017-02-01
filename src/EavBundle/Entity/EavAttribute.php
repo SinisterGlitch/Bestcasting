@@ -5,6 +5,7 @@ namespace EavBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Table(name="entity_attribute")
@@ -26,6 +27,7 @@ class EavAttribute
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"details", "list"})
+     * @Type("integer")
      * @var integer
      */
     protected $id;
@@ -34,6 +36,7 @@ class EavAttribute
      * @var string
      * @ORM\Column(name="code", type="string")
      * @Groups({"details", "list"})
+     * @Type("string")
      */
     protected $code;
 
@@ -41,6 +44,7 @@ class EavAttribute
      * @var string
      * @ORM\Column(name="type", type="string")
      * @Groups({"details", "list"})
+     * @Type("string")
      */
     protected $type;
 
@@ -48,6 +52,7 @@ class EavAttribute
      * @var boolean
      * @ORM\Column(name="required", type="boolean")
      * @Groups({"details", "list"})
+     * @Type("boolean")
      */
     protected $required = 0;
 
@@ -55,13 +60,15 @@ class EavAttribute
      * @var boolean
      * @ORM\Column(name="searchable", type="boolean")
      * @Groups({"details", "list"})
+     * @Type("boolean")
      */
     protected $searchable = 0;
 
     /**
      * @var EavGroup[]
-     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", inversedBy="attributes", cascade={"persist"})
      * @ORM\JoinTable(name="entity_attribute_group_attribute")
+     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", inversedBy="attributes", cascade={"persist"})
+     * @Type("ArrayCollection<EavBundle\Entity\EavGroup>")
      * @Groups({"details", "list"})
      */
     protected $groups;

@@ -4,6 +4,7 @@ namespace EavBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Table(name="entity_attribute_value_option")
@@ -16,6 +17,7 @@ class EavOption
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"details", "list"})
+     * @Type("integer")
      * @var integer
      */
     protected $id;
@@ -24,12 +26,14 @@ class EavOption
      * @var string
      * @ORM\Column(name="code", type="string")
      * @Groups({"details", "list"})
+     * @Type("string")
      */
     protected $code;
 
     /**
      * @var EavValue
      * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavValue", inversedBy="value")
+     * @Type("EavBundle\Entity\EavValue")
      * @Groups({"details", "list"})
      */
     protected $value;

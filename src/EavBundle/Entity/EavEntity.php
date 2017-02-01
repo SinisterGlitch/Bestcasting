@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Table(name="entity")
@@ -18,6 +19,7 @@ class EavEntity
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"details", "list"})
+     * @Type("integer")
      * @var integer
      */
     protected $id;
@@ -26,6 +28,7 @@ class EavEntity
      * @var string
      * @ORM\Column(name="code", type="string")
      * @Groups({"details", "list"})
+     * @Type("string")
      */
     protected $code;
 
@@ -33,12 +36,14 @@ class EavEntity
      * @var string
      * @ORM\Column(name="class", type="string")
      * @Groups({"details", "list"})
+     * @Type("string")
      */
     protected $class;
 
     /**
      * @var EavGroup[]
      * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes", cascade={"all"})
+     * @Type("ArrayCollection<EavBundle\Entity\EavGroup>")
      * @Groups({"details", "list"})
      */
     protected $groups;
@@ -46,7 +51,7 @@ class EavEntity
     /**
      * @var EavValue[]
      * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="value", cascade={"all"})
-     * @Groups({"details", "list"})
+     * @Type("ArrayCollection<EavBundle\Entity\EavValue>")
      */
     protected $values;
 
