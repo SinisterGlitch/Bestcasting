@@ -52,6 +52,7 @@ class EavEntity
      * @var EavValue[]
      * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="value", cascade={"all"})
      * @Type("ArrayCollection<EavBundle\Entity\EavValue>")
+     * @Groups({"details", "list"})
      */
     protected $values;
 
