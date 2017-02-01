@@ -42,7 +42,7 @@ class EavEntity
 
     /**
      * @var EavGroup[]
-     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="entity", cascade={"all"})
      * @Type("ArrayCollection<EavBundle\Entity\EavGroup>")
      * @Groups({"details", "list"})
      */
@@ -50,7 +50,7 @@ class EavEntity
 
     /**
      * @var EavValue[]
-     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="value", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="entity", cascade={"all"})
      * @Type("ArrayCollection<EavBundle\Entity\EavValue>")
      * @Groups({"details", "list"})
      */

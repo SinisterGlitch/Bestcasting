@@ -32,7 +32,7 @@ class EavOption
 
     /**
      * @var EavValue
-     * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavValue", inversedBy="value")
+     * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavValue", inversedBy="attribute")
      * @Type("EavBundle\Entity\EavValue")
      * @Groups({"details", "list"})
      */

@@ -66,8 +66,8 @@ class EavAttribute
 
     /**
      * @var EavGroup[]
+     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes", cascade={"persist"})
      * @ORM\JoinTable(name="entity_attribute_group_attribute")
-     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", inversedBy="attributes", cascade={"persist"})
      * @Type("ArrayCollection<EavBundle\Entity\EavGroup>")
      * @Groups({"details", "list"})
      */

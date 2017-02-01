@@ -33,7 +33,7 @@ class EavGroup
 
     /**
      * @var EavEntity
-     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="groups", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="groups", cascade={"persist"})
      * @Type("EavBundle\Entity\EavAttribute")
      * @Groups({"details", "list"})
      */
@@ -41,7 +41,7 @@ class EavGroup
 
     /**
      * @var EavAttribute[]
-     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavAttribute", mappedBy="group", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavAttribute", inversedBy="groups", cascade={"persist"})
      * @Type("ArrayCollection<EavBundle\Entity\EavAttribute>")
      * @Groups({"details", "list"})
      */

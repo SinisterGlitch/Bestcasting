@@ -24,14 +24,6 @@ class EavValue
     protected $id;
 
     /**
-     * @var string
-     * @ORM\Column(name="value", type="string")
-     * @Groups({"details", "list"})
-     * @Type("string")
-     */
-    protected $value;
-
-    /**
      * @var EavEntity
      * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="values")
      * @Type("EavBundle\Entity\EavValue")
@@ -41,7 +33,7 @@ class EavValue
 
     /**
      * @var EavAttribute
-     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavAttribute", inversedBy="value")
+     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavAttribute", mappedBy="value")
      * @Type("EavBundle\Entity\EavAttribute")
      * @Groups({"details", "list"})
      */
