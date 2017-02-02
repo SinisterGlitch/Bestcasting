@@ -64,12 +64,20 @@ class EavAttribute
      */
     protected $searchable = 0;
 
+
+    /**
+     * @var EavValue
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="attribute")
+     * @Type("EavBundle\Entity\EavAttribute")
+     * @Groups({"details", "list"})
+     */
+    protected $value;
+
     /**
      * @var EavGroup[]
      * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes", cascade={"persist"})
      * @ORM\JoinTable(name="entity_attribute_group_attribute")
      * @Type("ArrayCollection<EavBundle\Entity\EavGroup>")
-     * @Groups({"details", "list"})
      */
     protected $groups;
 

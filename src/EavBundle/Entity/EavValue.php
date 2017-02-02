@@ -33,7 +33,7 @@ class EavValue
 
     /**
      * @var EavAttribute
-     * @ORM\OneToOne(targetEntity="EavBundle\Entity\EavAttribute", mappedBy="value")
+     * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavAttribute", inversedBy="value")
      * @Type("EavBundle\Entity\EavAttribute")
      * @Groups({"details", "list"})
      */
