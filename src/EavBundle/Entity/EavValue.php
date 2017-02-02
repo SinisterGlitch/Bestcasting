@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\Type;
 
 /**
@@ -52,6 +53,8 @@ class EavValue
     /**
      * @var string
      * @ORM\Column(name="string_value", type="string", length=255, nullable=true)
+     * @Groups({"details", "list"})
+     * @SerializedName("value")
      * @Type("string")
      */
     private $stringValue;
@@ -59,6 +62,8 @@ class EavValue
     /**
      * @var string
      * @ORM\Column(name="text_value", type="text", nullable=true)
+     * @Groups({"details", "list"})
+     * @SerializedName("value")
      * @Type("string")
      */
     private $textValue;
@@ -66,6 +71,8 @@ class EavValue
     /**
      * @var integer
      * @ORM\Column(name="number_value", type="bigint", nullable=true)
+     * @Groups({"details", "list"})
+     * @SerializedName("value")
      * @Type("string")
      */
     private $numberValue;
@@ -73,6 +80,9 @@ class EavValue
     /**
      * @var float
      * @ORM\Column(name="float_value", type="float", nullable=true)
+     * @SerializedName("float_value")
+     * @Groups({"details", "list"})
+     * @SerializedName("value")
      * @Type("string")
      */
     private $floatValue;
@@ -81,6 +91,8 @@ class EavValue
      * @var \DateTime
      * @ORM\Column(name="date_value", type="datetime", nullable=true)
      * @Type("DateTime<'Y-m-d'>")
+     * @Groups({"details", "list"})
+     * @SerializedName("value")
      */
     private $dateValue;
 
@@ -88,7 +100,8 @@ class EavValue
      * @var boolean
      * @ORM\Column(name="boolean_value", type="boolean", nullable=true)
      * @Groups({"details", "list"})
-     * @Type("boolean")
+     * @SerializedName("value")
+     * @Type("string")
      */
     private $booleanValue;
 
@@ -105,7 +118,8 @@ class EavValue
      */
     public function __construct()
     {
-        $this->value = $this->getValue();
+
+        $this->options = new ArrayCollection();
     }
 
     /**
@@ -365,5 +379,4 @@ class EavValue
 
         return $this;
     }
-
 }
