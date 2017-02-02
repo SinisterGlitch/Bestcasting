@@ -32,6 +32,22 @@ class EavGroup
     protected $code;
 
     /**
+     * @var string
+     * @ORM\Column(name="label", type="string")
+     * @Groups({"details", "list"})
+     * @Type("string")
+     */
+    protected $label;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="order", type="integer")
+     * @Groups({"details", "list"})
+     * @Type("integer")
+     */
+    protected $order;
+
+    /**
      * @var EavEntity
      * @ORM\ManyToOne(targetEntity="EavBundle\Entity\EavEntity", inversedBy="groups", cascade={"persist"})
      * @Type("EavBundle\Entity\EavAttribute")
@@ -42,7 +58,7 @@ class EavGroup
     /**
      * @var EavAttribute[]
      * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavAttribute", inversedBy="groups", cascade={"persist"})
-     * @ORM\JoinTable(name="entity_attribute_group_attribute2")
+     * @ORM\JoinTable(name="entity_attribute_group_attribute")
      * @Type("ArrayCollection<EavBundle\Entity\EavAttribute>")
      * @Groups({"details", "list"})
      */

@@ -42,11 +42,42 @@ class EavAttribute
 
     /**
      * @var string
+     * @ORM\Column(name="label", type="string")
+     * @Groups({"details", "list"})
+     * @Type("string")
+     */
+    protected $label;
+
+    /**
+     * @var string
+     * @ORM\Column(name="default_value", type="string")
+     * @Groups({"details", "list"})
+     * @Type("string")
+     */
+    protected $defaultValue;
+
+    /**
+     * @var string
      * @ORM\Column(name="type", type="string")
      * @Groups({"details", "list"})
      * @Type("string")
      */
     protected $type;
+
+    /**
+     * @var EavValue
+     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="attribute")
+     * @Type("EavBundle\Entity\EavAttribute")
+     * @Groups({"details", "list"})
+     */
+    protected $value;
+
+    /**
+     * @var EavGroup[]
+     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes", cascade={"persist"})
+     * @Type("ArrayCollection<EavBundle\Entity\EavGroup>")
+     */
+    protected $groups;
 
     /**
      * @var boolean
@@ -64,22 +95,29 @@ class EavAttribute
      */
     protected $searchable = 0;
 
-
     /**
-     * @var EavValue
-     * @ORM\OneToMany(targetEntity="EavBundle\Entity\EavValue", mappedBy="attribute")
-     * @Type("EavBundle\Entity\EavAttribute")
+     * @var boolean
+     * @ORM\Column(name="unique", type="boolean")
      * @Groups({"details", "list"})
+     * @Type("boolean")
      */
-    protected $value;
+    protected $unique = 0;
 
     /**
-     * @var EavGroup[]
-     * @ORM\ManyToMany(targetEntity="EavBundle\Entity\EavGroup", mappedBy="attributes", cascade={"persist"})
-     * @ORM\JoinTable(name="entity_attribute_group_attribute")
-     * @Type("ArrayCollection<EavBundle\Entity\EavGroup>")
+     * @var boolean
+     * @ORM\Column(name="read_only", type="boolean")
+     * @Groups({"details", "list"})
+     * @Type("boolean")
      */
-    protected $groups;
+    protected $readOnly = 0;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="enabled", type="boolean")
+     * @Groups({"details", "list"})
+     * @Type("boolean")
+     */
+    protected $enabled = 1;
 
     /**
      * EavAttribute constructor.
@@ -212,5 +250,119 @@ class EavAttribute
     public function isSearchable()
     {
         return $this->searchable;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param string $label
+     * @return $this
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultValue()
+    {
+        return $this->defaultValue;
+    }
+
+    /**
+     * @param string $defaultValue
+     * @return $this
+     */
+    public function setDefaultValue($defaultValue)
+    {
+        $this->defaultValue = $defaultValue;
+
+        return $this;
+    }
+
+    /**
+     * @return EavValue
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param EavValue $value
+     * @return $this
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isUnique()
+    {
+        return $this->unique;
+    }
+
+    /**
+     * @param boolean $unique
+     * @return $this
+     */
+    public function setUnique($unique)
+    {
+        $this->unique = $unique;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isReadOnly()
+    {
+        return $this->readOnly;
+    }
+
+    /**
+     * @param boolean $readOnly
+     * @return $this
+     */
+    public function setReadOnly($readOnly)
+    {
+        $this->readOnly = $readOnly;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param boolean $enabled
+     * @return $this
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
     }
 }
