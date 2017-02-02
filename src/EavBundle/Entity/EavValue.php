@@ -252,18 +252,24 @@ class EavValue
 
     /**
      * @param EavOption $options
+     * @return $this
      */
     public function addOption(EavOption $options)
     {
         $this->options[] = $options;
+
+        return $this;
     }
 
     /**
      * @param EavOption $options
+     * @return $this
      */
     public function removeOption(EavOption $options)
     {
         $this->options->removeElement($options);
+
+        return $this;
     }
 
     /**
